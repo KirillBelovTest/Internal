@@ -68,7 +68,7 @@ bytesPosition[data, bytes, Range[n, Round[Length[data] / Length[bytes]]]];
 
 BytesSplit[data_ByteArray, separator_ByteArray -> n_Integer?Positive] := 
 Module[{position}, 
-	position = ByteArrayPosition[data, separator, n]; 
+	position = BytesPosition[data, separator, n]; 
 	If[Length[position] > 0, 
 		{data[[ ;; position[[1, 1]] - 1]], data[[position[[1, 2]] + 1 ;; ]]}, 
 	(*Else*)
@@ -106,9 +106,10 @@ Module[{lib = FileNameJoin[{$lLibraryResources, name <> "." <> Internal`DynamicL
 		FileExistsQ[lib], 
 			LibraryFunctionLoad[lib], 
 		(*Else*)
+			If[!FileExistsQ[$lLibraryResources], CreateDirectory[$lLibraryResources]];
 			LibraryFunctionLoad[FunctionCompileExportLibrary[lib, func]]
 	]
-]
+]; 
 
 
 (*Internal*)
@@ -121,7 +122,7 @@ $lLibraryResources = FileNameJoin[{
 	DirectoryName[$InputFileName, 2], 
 	"LibraryResources", 
 	$SystemID
-}]
+}]; 
 
 
 bytesPosition := bytesPosition = PreCompile["bytesPosition", 
