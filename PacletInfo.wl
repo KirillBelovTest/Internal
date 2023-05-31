@@ -1,3 +1,5 @@
+(* ::Package:: *)
+
 PacletObject[
 	<|
 		"Name" -> "KirillBelov/Internal", 
@@ -5,7 +7,7 @@ PacletObject[
 		"Creator" -> "Kirill Belov", 
 		"License" -> "MIT", 
 		"PublisherID" -> "KirillBelov", 
-		"Version" -> "1.0.0", 
+		"Version" -> "1.0.1", 
 		"WolframVersion" -> "13+", 
 		"Extensions" -> {
 			{
@@ -17,7 +19,11 @@ PacletObject[
 			{
 				"Documentation", 
 				"Language" -> "English"
-			}, 
+			},
+			{
+				"LibraryLink",
+				"Root" -> "LibraryResources"
+			},
 			{
 				"Asset", 
 				"Assets" -> {
