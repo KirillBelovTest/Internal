@@ -100,13 +100,15 @@ test[request[key]];
 SetAttributes[PreCompile, HoldRest]; 
 
 
-PreCompile[name_String, func_FunctionCompile] := 
-Module[{lib = FileNameJoin[{$lLibraryResources, name <> "." <> Internal`DynamicLibraryExtension[]}]}, 
+PreCompile[name_String, func_FunctionCompile, workingDirectory_String: DirectoryName[$InputFileName, 2]] := 
+Module[{libraryResources, lib}, 
+	libraryResources = getLibraryResourcesDirectory[workingDirectory]; 
+	lib = FileNameJoin[{libraryResources, name <> "." <> Internal`DynamicLibraryExtension[]}]; 
 	If[
 		FileExistsQ[lib], 
 			LibraryFunctionLoad[lib], 
 		(*Else*)
-			If[!FileExistsQ[$lLibraryResources], CreateDirectory[$lLibraryResources]];
+			If[!FileExistsQ[$libraryResources], CreateDirectory[]];
 			LibraryFunctionLoad[FunctionCompileExportLibrary[lib, func]]
 	]
 ]; 
@@ -115,11 +117,9 @@ Module[{lib = FileNameJoin[{$lLibraryResources, name <> "." <> Internal`DynamicL
 (*Internal*)
 
 
-$indent = ""; 
-
-
-$lLibraryResources = FileNameJoin[{
-	DirectoryName[$InputFileName, 2], 
+getLibraryResourcesDirectory[directory_String] := 
+FileNameJoin[{
+	directory, 
 	"LibraryResources", 
 	$SystemID
 }]; 
