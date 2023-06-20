@@ -100,7 +100,7 @@ test[request[key]];
 SetAttributes[PreCompile, HoldRest]; 
 
 
-PreCompile[name_String, func_FunctionCompile, workingDirectory_String: DirectoryName[$InputFileName, 2]] := 
+PreCompile[name_String, func_FunctionCompile, workingDirectory_: DirectoryName[$InputFileName, 2]] := 
 Module[{libraryResources, lib}, 
 	libraryResources = getLibraryResourcesDirectory[workingDirectory]; 
 	lib = FileNameJoin[{libraryResources, name <> "." <> Internal`DynamicLibraryExtension[]}]; 
