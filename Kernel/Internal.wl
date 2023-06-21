@@ -100,21 +100,25 @@ test[request[key]];
 SetAttributes[PreCompile, HoldRest]; 
 
 
-PreCompile[name_String, func_FunctionCompile, workingDirectory_: DirectoryName[$InputFileName, 2]] := 
+PreCompile[{directory_String, name_String}, func_FunctionCompile] := 
 Module[{libraryResources, lib}, 
-	libraryResources = getLibraryResourcesDirectory[workingDirectory]; 
+	libraryResources = getLibraryResourcesDirectory[directory]; 
 	lib = FileNameJoin[{libraryResources, name <> "." <> Internal`DynamicLibraryExtension[]}]; 
 	If[
 		FileExistsQ[lib], 
 			LibraryFunctionLoad[lib], 
 		(*Else*)
-			If[!FileExistsQ[$libraryResources], CreateDirectory[]];
+			If[!FileExistsQ[libraryResources], CreateDirectory[libraryResources]]; 
 			LibraryFunctionLoad[FunctionCompileExportLibrary[lib, func]]
 	]
 ]; 
 
 
 (*Internal*)
+
+
+$directory = 
+DirectoryName[$InputFileName, 2]; 
 
 
 getLibraryResourcesDirectory[directory_String] := 
@@ -125,7 +129,7 @@ FileNameJoin[{
 }]; 
 
 
-bytesPosition := bytesPosition = PreCompile["bytesPosition", 
+bytesPosition := bytesPosition = PreCompile[{$directory, "bytesPosition"}, 
 	FunctionCompile[Function[{
 		Typed[byteArray, "NumericArray"::["UnsignedInteger8", 1]], 
 		Typed[subByteArray, "NumericArray"::["UnsignedInteger8", 1]], 
