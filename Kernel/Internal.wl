@@ -108,8 +108,33 @@ Module[{libraryResources, lib},
 		FileExistsQ[lib], 
 			LibraryFunctionLoad[lib], 
 		(*Else*)
+		With[{},
 			If[!FileExistsQ[libraryResources], CreateDirectory[libraryResources]]; 
 			LibraryFunctionLoad[FunctionCompileExportLibrary[lib, func]]
+		]
+	]
+]; 
+
+PreCompile[{directory_String, name_String}, path_] := 
+Module[{libraryResources, lib}, 
+	libraryResources = getLibraryResourcesDirectory[directory]; 
+	lib = FileNameJoin[{libraryResources, name <> "." <> Internal`DynamicLibraryExtension[]}]; 
+	If[
+		FileExistsQ[lib], 
+			LibraryFunctionLoad[lib], 
+		(*Else*)
+		If[!(path // ListQ),
+			With[{func = Import[path]},
+				If[!FileExistsQ[libraryResources], CreateDirectory[libraryResources]]; 
+				LibraryFunctionLoad[FunctionCompileExportLibrary[lib, func]]
+			]
+			(*Else*)
+		,
+			With[{func = Import[Which@@Flatten[(path/.Rule->List)]]},
+				If[!FileExistsQ[libraryResources], CreateDirectory[libraryResources]]; 
+				LibraryFunctionLoad[FunctionCompileExportLibrary[lib, func]]
+			]		
+		]
 	]
 ]; 
 
@@ -128,32 +153,19 @@ FileNameJoin[{
 	$SystemID
 }]; 
 
+VersionQ[n_] := $VersionNumber >= n
 
-bytesPosition := bytesPosition = PreCompile[{$directory, "bytesPosition"}, 
-	FunctionCompile[Function[{
-		Typed[byteArray, "NumericArray"::["UnsignedInteger8", 1]], 
-		Typed[subByteArray, "NumericArray"::["UnsignedInteger8", 1]], 
-		Typed[n, "PackedArray"::["MachineInteger", 1]]
-	}, 
-		Module[{m = 0, j = 1, len = Length[subByteArray], positions = {}},
-			Do[
-				If[
-					byteArray[[i ;; i + len - 1]] === subByteArray, 
-						m++; 
-						If[m === n[[j]], 
-							j++; 
-							positions = Append[positions, {i, i + len - 1}];  
-							If[j > Length[n], Break[]]
-						]
-				], 
-				{i, 1, Length[byteArray] - len + 1}
-			]; 
-
-			(*Return: {{_Integer, _Integer}.., }*)
-			positions
-		]
-	]]
-]; 
+bytesPosition := bytesPosition = 
+If[VersionQ[13.2],
+	PreCompile[{$directory, "bytesPosition"}, 
+		{
+			VersionQ[13.2]-> FileNameJoin[{$directory, "Kernel", "bytesPosition.wl"}],
+			True -> FileNameJoin[{$directory, "Kernel", "bytesPosition-legacy.wl"}]
+		}
+	]
+,
+	FileNameJoin[{$directory, "Kernel", "bytesPosition-uncompiled.wl"}] // Get
+]
 
 
 (*End private*)
