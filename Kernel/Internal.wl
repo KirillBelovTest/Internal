@@ -33,7 +33,26 @@ AssocMatchQ[assoc, key, valuePattern] check key from assoc
 AssocMatchQ[pattern] - function"; 
 
 
-Begin["`Private`"];
+AssocBlock::usage = 
+"AssocBlock[assoc, vars, expr] assoc converts to local variables for block."; 
+
+
+Begin["`Private`"]; 
+
+
+SetAttributes[AssocBlock, HoldRest]; 
+
+
+AssocBlock[assoc_Association, vars___Set, expr_] := 
+Module[{x1, x2}, 
+	x1 = Normal @ assoc /. Rule[k_String, v_] :> Rule[ToExpression[k, StandardForm, Hold], v]; 
+	x2 = Apply[List, Hold[vars] /. Verbatim[Set][a_, b_] :> (Hold[a] -> b)]; 
+	With[{x3 = Join[x1, x2]}, 
+		With[{x4 = Hold[x3, expr] /. Rule[Hold[s_], v_] :>  Hold[s, v]}, 
+			Apply[Block , x4  /. Hold[s_Symbol, v_] :> Set[s, v]]
+		]
+	]
+]; 
 
 
 ConditionApply[conditionAndFunctions_Association: <||>, defalut_: Function[Null], ___] := 
