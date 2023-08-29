@@ -37,6 +37,9 @@ AssocBlock::usage =
 "AssocBlock[assoc, vars, expr] assoc converts to local variables for block."; 
 
 
+WolframAlphaTextPod
+
+
 Begin["`Private`"]; 
 
 
