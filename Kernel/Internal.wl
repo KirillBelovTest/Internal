@@ -177,15 +177,26 @@ FileNameJoin[{
 
 VersionQ[n_] := $VersionNumber >= n
 
+testBytePositions[func_] := If[func[ByteArray[{0,2,1,4}], ByteArray[{1}], {1}] === {{3,3}}, True, False]
+
 bytesPosition := bytesPosition = 
 If[VersionQ[13.2],
-	PreCompile[{$directory, "bytesPosition"}, 
-		{
-			VersionQ[13.2]-> FileNameJoin[{$directory, "Kernel", "bytesPosition.wl"}],
-			True -> FileNameJoin[{$directory, "Kernel", "bytesPosition-legacy.wl"}]
-		}
-	]
+		With[{compiled = PreCompile[{$directory, "bytesPosition"}, 
+			{
+				VersionQ[13.2]-> FileNameJoin[{$directory, "Kernel", "bytesPosition.wl"}],
+				True -> FileNameJoin[{$directory, "Kernel", "bytesPosition-legacy.wl"}]
+			}]},
+
+			If[testBytePositions[compiled] // TrueQ,
+				Print[">> using compiled version of bytePosition"];
+				compiled	
+			,
+				Print[">> test FAILED: using uncompiled version of bytePosition"];
+				FileNameJoin[{$directory, "Kernel", "bytesPosition-uncompiled.wl"}] // Get
+			]
+		]
 ,
+	Print[">> legacy version of WL: using uncompiled version of bytePosition"];
 	FileNameJoin[{$directory, "Kernel", "bytesPosition-uncompiled.wl"}] // Get
 ]
 
