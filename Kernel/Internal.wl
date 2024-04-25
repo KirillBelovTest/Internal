@@ -1,6 +1,8 @@
 (*:Package:*)
 
-BeginPackage["KirillBelov`Internal`"]; 
+BeginPackage["KirillBelov`Internal`", {
+	"CCompilerDriver`"
+}]; 
 
 
 ClearAll["`*"]; 
@@ -37,10 +39,70 @@ AssocBlock::usage =
 "AssocBlock[assoc, vars, expr] assoc converts to local variables for block."; 
 
 
+AssocFunction
+
+
 WolframAlphaTextPod
 
 
+$LibraryLinkVersion
+
+
 Begin["`Private`"]; 
+
+
+$LibraryLinkVersion := $LibraryLinkVersion = 
+getLibraryLinkVersion[]; 
+
+
+AssocFunction[func_Symbol][assoc_Association?AssociationQ] := 
+Module[{params}, 
+	Evaluate[params = 
+	Map[Function[ReleaseHold[# //. {
+		Verbatim[HoldPattern][func[$a___]] :> Hold[{$a}], 
+		Verbatim[PatternTest][Verbatim[Pattern][$n_, $h_], $t_] :> <|
+			"Name" -> ToString[$n], 
+			"Head" -> $h, 
+			"Test" -> $t
+        |>, 
+		Verbatim[Pattern][$n_, $h_] :> <|
+			"Name" -> ToString[$n], 
+			"Head" -> $h
+		|>
+	}]]] @ DownValues[func][[All, 1]];
+
+	With[{targetParams = 
+    	Query[All, {"Name" -> Slot}] @ 
+		SelectFirst[params,
+			Map[ToLowerCase, Sort[#[[All, "Name"]]]] == 
+			Map[ToLowerCase, Sort[Keys[assoc]]] &
+		]
+	},
+	
+		With[{target = Table[
+			With[{$h = param["Head"], $n = param["Name"], $t = param["Test"]}, 
+				Which[
+					$t === VectorQ, Hold[Map[ToExpression] @ StringSplit[$n, ","]], 
+					$h === _Real, Hold[N[ToExpression[$n]]], 
+					$h === _Integer, Hold[Round[ToExpression[$n]]], 
+					$h === _List, Hold[StringSplit[$n, ","]],
+					$t === NumberQ, Hold[ToExpression[$n]], 
+					True, Hold[$n]
+				]
+			], 
+			{param, targetParams}
+		]}, 
+
+			With[{$func = func @@ target & //. {Hold[$a_] :> $a}}, 
+				$func[assoc]
+			]
+		]
+	]]
+]; 
+
+
+JSONFunction[func_Symbol][jsonText_String] := 
+JSONFunction[func][ImportString[jsonText, "RawJSON"]]; 
 
 
 SetAttributes[AssocBlock, HoldRest]; 
@@ -137,6 +199,7 @@ Module[{libraryResources, lib},
 	]
 ]; 
 
+
 PreCompile[{directory_String, name_String}, path_] := 
 Module[{libraryResources, lib}, 
 	libraryResources = getLibraryResourcesDirectory[directory]; 
@@ -168,6 +231,38 @@ $directory =
 DirectoryName[$InputFileName, 2]; 
 
 
+getLibraryLinkVersion[] := 
+Module[{source, lib, version, getLibraryLinkVerionFunc}, 
+	source = "#include \"WolframLibrary.h\"
+
+DLLEXPORT mint WolframLibrary_getVersion() {
+	return WolframLibraryVersion;
+}
+
+DLLEXPORT int WolframLibrary_initialize(WolframLibraryData libData) {
+	return 0;
+}
+
+DLLEXPORT int getLibraryLinkVersion(WolframLibraryData libData, mint Argc, MArgument *Args, MArgument Res){
+	MArgument_setInteger(Res, WolframLibrary_getVersion()); 
+	return LIBRARY_NO_ERROR; 
+}"; 
+	lib = CreateLibrary[source, "getLibraryLinkVersion", 
+		"TargetDirectory" -> Directory[], 
+		"Debug" -> False
+	]; 
+
+	getLibraryLinkVerionFunc = LibraryFunctionLoad[lib, "getLibraryLinkVersion", {}, Integer]; 
+	version = getLibraryLinkVerionFunc[]; 
+
+	LibraryFunctionUnload[getLibraryLinkVerionFunc]; 
+
+	DeleteFile[lib]; 
+
+	version
+]; 
+
+
 getLibraryResourcesDirectory[directory_String] := 
 FileNameJoin[{
 	directory, 
@@ -175,39 +270,42 @@ FileNameJoin[{
 	$SystemID
 }]; 
 
-VersionQ[n_] := $VersionNumber >= n
 
-testBytePositions[func_] := If[func[ByteArray[{0,2,1,4}], ByteArray[{1}], {1}] === {{3,3}}, True, False]
+versionQ[n_] := $VersionNumber >= n; 
+
+
+testBytePositions[func_] := 
+If[func[ByteArray[{0,2,1,4}], ByteArray[{1}], {1}] === {{3,3}}, True, False]; 
+
 
 bytesPosition := bytesPosition = 
-If[VersionQ[13.2],
-		With[{compiled = PreCompile[{$directory, "bytesPosition"}, 
-			{
-				VersionQ[13.2]-> FileNameJoin[{$directory, "Kernel", "bytesPosition.wl"}],
-				True -> FileNameJoin[{$directory, "Kernel", "bytesPosition-legacy.wl"}]
-			}]},
-
-			If[testBytePositions[compiled] // TrueQ,
-				Print[">> using compiled version of bytePosition"];
-				compiled	
-			,
-				Print[">> test FAILED: using uncompiled version of bytePosition"];
-				FileNameJoin[{$directory, "Kernel", "bytesPosition-uncompiled.wl"}] // Get
-			]
+If[versionQ[13.2], 
+	With[{compiled = PreCompile[{$directory, "bytesPosition"}, {
+		versionQ[13.2] -> FileNameJoin[{$directory, "Kernel", "bytesPosition.wl"}],
+		True -> FileNameJoin[{$directory, "Kernel", "bytesPosition-legacy.wl"}]
+		}]
+	},
+		If[TrueQ[testBytePositions[compiled]],
+			compiled,
+			Get[FileNameJoin[{$directory, "Kernel", "bytesPosition-uncompiled.wl"}]]
 		]
-,
-	Print[">> legacy version of WL: using uncompiled version of bytePosition"];
-	FileNameJoin[{$directory, "Kernel", "bytesPosition-uncompiled.wl"}] // Get
-]
-
-
-(*End private*)
+	],
+(*Else*)
+	Get[FileNameJoin[{$directory, "Kernel", "bytesPosition-uncompiled.wl"}]]
+]; 
 
 
 End[]; 
 
 
-(*End package*)
-
-
 EndPackage[];
+
+(*
+	КОТ=16
+	РОТ=18
+	АУ=14
+
+	2АУ+КОТ+РОТ=28+16+18
+	2АУ+К+Р+2ОТ=48
+	
+*)
