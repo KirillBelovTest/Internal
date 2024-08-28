@@ -29,6 +29,10 @@ BytesSplit::usage =
 "BytesSplit[data, sep -> n] works like Map[StringJoin, TakeDrop[StringSplit[text, sep], n]]"; 
 
 
+ByteMask::usage = 
+"ByteMask[mask, numericArray] returns masked numeric array."; 
+
+
 AssocMatchQ::usage = 
 "AssocMatchQ[assoc, pattern] match assoc with pattern
 AssocMatchQ[assoc, key, valuePattern] check key from assoc
@@ -169,16 +173,20 @@ AssocMatchQ[pattern_Association][assoc_Association] :=
 AssocMatchQ[assoc, pattern]; 
 
 
-AssocMatchQ[request_Association, key__String, test: _String | _StringExpression] := 
-StringMatchQ[request[key], test, IgnoreCase -> True]; 
+AssocMatchQ[assoc_Association, keys__, stringPattern_?StringPattern`StringPatternQ] := 
+StringMatchQ[assoc[[keys]], stringPattern, IgnoreCase -> True]; 
 
 
-AssocMatchQ[request_Association, key__String, test: _Association] := 
-AssocMatchQ[request[key], test]; 
+AssocMatchQ[assoc_Association, keys__, func_Function] := 
+func[assoc[[key]]]; 
 
 
-AssocMatchQ[request_Association, key: _String | {__String}, test: _Function | _Symbol | _[___]] := 
-test[request[key]]; 
+AssocMatchQ[assoc_Association, keys__, assocPattern_Association?AssociationQ] := 
+AssocMatchQ[assoc[[keys]], assocPattern]; 
+
+
+AssocMatchQ[assoc_Association, keys__, pattern_] := 
+MatchQ[assoc[[keys]], pattern]; 
 
 
 SetAttributes[PreCompile, HoldRest]; 
@@ -300,13 +308,3 @@ End[];
 
 
 EndPackage[];
-
-(*
-	КОТ=16
-	РОТ=18
-	АУ=14
-
-	2АУ+КОТ+РОТ=28+16+18
-	2АУ+К+Р+2ОТ=48
-	
-*)

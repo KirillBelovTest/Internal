@@ -2954,8 +2954,8 @@ Cell["Additional information about limitations, issues, etc.", "Text",
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1017, 792},
-WindowMargins->{{219, Automatic}, {Automatic, 84}},
+WindowSize->{1017, 729.75},
+WindowMargins->{{-1025.25, Automatic}, {Automatic, 1.5}},
 DockedCells->{
   Cell[
    BoxData[
@@ -3008,7 +3008,7 @@ Fu6DuJJG2H9mK2QZ3X1Y8rjKVdsLU11Qbnfn/Mae/TiO1RZHs2bny+6Vwq5Sfi8TnHKi+1+K4NOh"]\
     "DefaultContentMethod" -> "Tagged", "HintPods" -> True, "LoadingMethod" -> 
     "Paclet", "PacletName" -> "PacletResource", "SourceID" -> 
     "8f99c2b0ee5e9f24d331c183562e905b4bbb1a6f"}, 
-  "SubmissionReviewData" -> {"Review" -> False}, "ToolsOpen" -> False, 
+  "SubmissionReviewData" -> {"Review" -> False}, "ToolsOpen" -> True, 
   "UpdatedTimestamp" -> 3.8976631940298709`17.343379297185784*^9, 
   "TemplateVersion" -> "2023.03.03", "StatusMessage" -> "", "AutoUpdate" -> 
   True, "PacletBuildData" -> {
@@ -3029,7 +3029,7 @@ Xi+r9uqu5WfQDeYMcnV08XXVy01BtmjvJ6YXvx5IVyB0wEQAxfJjkI+azrY=
       "]]}},
 CreateCellID->True,
 DynamicEvaluationTimeout->60,
-FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (June 3, 2023)",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
 StyleDefinitions->Notebook[{
    Cell[
     StyleData[StyleDefinitions -> "Default.nb"]], 
@@ -10841,7 +10841,7 @@ GRPf1sw3cDj8VSOm/5G9w5vAHXKt3IZQ/0HDoQHBFwFFwBcEHxR9zQlGcP3o
    Cell[
     StyleData["AttachedMessage"], Deletable -> True, 
     CellMargins -> {{60, 40}, {15, 5}}]}, Visible -> False, FrontEndVersion -> 
-  "13.3 for Microsoft Windows (64-bit) (June 3, 2023)", StyleDefinitions -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
   "PrivateStylesheetFormatting.nb"],
 ExpressionUUID->"43977b28-cccc-43e7-935e-af132def7813"
 ]
