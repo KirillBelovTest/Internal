@@ -46,6 +46,10 @@ AssocBlock::usage =
 AssocFunction
 
 
+CreateBackgroundTask::usage = 
+"CreateBackgroundTask[expr, {timeSpec, runCount}] run expr in background like in ScheduledTask."; 
+
+
 WolframAlphaTextPod
 
 
@@ -304,7 +308,61 @@ If[versionQ[13.2],
 ]; 
 
 
+SetAttributes[CreateBackgroundTask, HoldFirst]; 
+
+
+toEvent[task_, event_, {n_, runCount_, id_}] := 
+<|
+	"task" :> task, 
+	"n" :> n, 
+	"runCount" :> runCount, 
+	"id" :> id
+|>; 
+
+
+CreateBackgroundTask[expr_, {interval_?NumericQ, count_Integer}] := 
+With[{id = $id++}, 
+	$backgroundTasks[id] := expr; 
+	$backgroundTaskCounts[id] = count; 
+
+	Internal`CreateAsynchronousTask[
+		startBackgroundTask, 
+		{id, Round[interval * 1000], count}, 
+		runBackgroundTask[toEvent[##]]&
+	]
+]; 
+
+
+If[!IntegerQ[$id], $id = 1]; 
+
+
+runBackgroundTask = Function[
+	If[#runCount < #n, 
+		stopBackgroundTask[#task[[2]]], 
+
+	(*Else*)
+		$backgroundTasks[#id]
+	]
+]; 
+
+
+If[!AssociationQ[$backgroundTasks], $backgroundTasks = <||>]; 
+
+
+If[!AssociationQ[$backgroundTasks], $backgroundTaskCounts = <||>]; 
+
+
+$backgroundTaskLibrary = 
+FileNameJoin[{getLibraryResourcesDirectory[$directory] <> "-v7", "backgroundTask." <> Internal`DynamicLibraryExtension[]}]; 
+
+
+startBackgroundTask = LibraryFunctionLoad[$backgroundTaskLibrary, "startBackgroundTask", {Integer, Integer, Integer}, Integer]; 
+
+
+stopBackgroundTask = LibraryFunctionLoad[$backgroundTaskLibrary, "stopBackgroundTask", {Integer}, Integer]; 
+
+
 End[]; 
 
 
-EndPackage[];
+EndPackage[]; 

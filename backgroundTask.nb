@@ -1,0 +1,143 @@
+(* Content-type: application/vnd.wolfram.cdf.text *)
+
+(*** Wolfram CDF File ***)
+(* http://www.wolfram.com/cdf *)
+
+(* CreatedBy='Wolfram 14.1' *)
+
+(*************************************************************************)
+(*                                                                       *)
+(*                                                                       *)
+(*  This file was created under the Wolfram Enterprise licensing terms.  *)
+(*                                                                       *)
+(*       For additional information concerning CDF licensing see:        *)
+(*                                                                       *)
+(*        www.wolfram.com/cdf/adopting-cdf/licensing-options.html        *)
+(*                                                                       *)
+(*                                                                       *)
+(*                                                                       *)
+(*************************************************************************)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[      1060,         20]
+NotebookDataLength[      4839,        122]
+NotebookOptionsPosition[      5066,        116]
+NotebookOutlinePosition[      5475,        132]
+CellTagsIndexPosition[      5432,        129]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{"<<", "KirillBelov`Internal`"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"x", " ", "=", " ", "0"}], ";"}], " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"event", " ", "=", " ", 
+    RowBox[{"Function", "[", 
+     RowBox[{
+      RowBox[{"Print", "[", "x", "]"}], ";", " ", 
+      RowBox[{"x", " ", "=", " ", 
+       RowBox[{"x", " ", "+", " ", "1"}]}]}], "]"}]}], ";"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"startBackgroundTask2", " ", "=", " ", 
+    RowBox[{"LibraryFunctionLoad", "[", 
+     RowBox[{
+      InterpretationBox[
+       DynamicModuleBox[{Typeset`open = False}, 
+        TemplateBox[{"String", "StringIcon", 
+          GridBox[{{
+             RowBox[{
+               TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+               TagBox["String", "IconizedItem"]}]}, {
+             RowBox[{
+               TagBox["\"String length: \"", "IconizedLabel"], 
+               "\[InvisibleSpace]", 
+               TagBox["87", "IconizedItem"]}]}, {
+             RowBox[{
+               TagBox["\"Byte count: \"", "IconizedLabel"], 
+               "\[InvisibleSpace]", 
+               TagBox["112", "IconizedItem"]}]}}, 
+           GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+           "Column", 
+           GridBoxItemSize -> {
+            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+          Dynamic[Typeset`open]},
+         "IconizedObject"]],
+       "C:\\Users\\Kirill\\Projects\\Internal\\LibraryResources\\Windows-x86-\
+64-v7\\backgroundTask.dll",
+       SelectWithContents->True,
+       Selectable->False], ",", " ", "\"\<startBackgroundTask2\>\"", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"Integer", ",", " ", "Integer", ",", " ", "Integer"}], "}"}], 
+      ",", " ", "Integer"}], "]"}]}], ";"}], " "}]}], "Input",
+ CellChangeTimes->{{3.9384802719344196`*^9, 3.9384802774629498`*^9}, {
+  3.9384961898977394`*^9, 3.9384961902438107`*^9}, {3.938499426850996*^9, 
+  3.938499427590351*^9}, {3.9385003071848373`*^9, 3.938500307434534*^9}, {
+  3.9385592801179485`*^9, 3.938559281387871*^9}, {3.938562818729433*^9, 
+  3.9385628201115017`*^9}, {3.938562955584297*^9, 3.9385629585841503`*^9}, {
+  3.9385649592785244`*^9, 3.9385649831458187`*^9}, {3.9385657413253117`*^9, 
+  3.938565757769451*^9}, {3.9385673845600166`*^9, 3.938567403754982*^9}, {
+  3.9385674551148167`*^9, 3.938567458261055*^9}, {3.938569095032114*^9, 
+  3.9385691021100025`*^9}, {3.9385691365203304`*^9, 3.9385691384612064`*^9}, {
+  3.9385781622769623`*^9, 3.9385781728450375`*^9}, {3.9385784715452633`*^9, 
+  3.938578481125345*^9}, {3.9385805360073414`*^9, 3.9385805644873543`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"abe62d2b-f329-8f44-9f04-7756cd943e75"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AbsoluteTiming", "[", 
+  RowBox[{"startBackgroundTask2", "[", 
+   RowBox[{"1", ",", " ", "1000", ",", " ", "5"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.9385734088802757`*^9, 3.938573411616249*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"12b8afc8-ba96-3047-b109-2c291f67b945"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.0000832`", ",", "1532"}], "}"}]], "Output",
+ CellChangeTimes->{{3.9385805212071934`*^9, 3.9385805403054295`*^9}, 
+   3.9385805760672493`*^9, {3.938580646547867*^9, 3.93858065579821*^9}},
+ CellLabel->"Out[7]=",ExpressionUUID->"6c52f221-9f04-e944-899f-4f845eda175b"],
+
+Cell[BoxData["10"], "Print",
+ CellChangeTimes->{3.93858065579821*^9},
+ CellLabel->
+  "During evaluation of \
+In[8]:=",ExpressionUUID->"409e7d34-ff75-cc4d-955a-06beba61aff8"]
+}, Open  ]]
+},
+WindowSize->{569.25, 624.75},
+WindowMargins->{{Automatic, 152.25}, {132, Automatic}},
+FrontEndVersion->"14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"28bee1bb-aa30-ec43-ada4-2449afb80c33"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[1460, 33, 2773, 58, 130, "Input",ExpressionUUID->"abe62d2b-f329-8f44-9f04-7756cd943e75"],
+Cell[CellGroupData[{
+Cell[4258, 95, 307, 5, 28, "Input",ExpressionUUID->"12b8afc8-ba96-3047-b109-2c291f67b945"],
+Cell[4568, 102, 306, 5, 32, "Output",ExpressionUUID->"6c52f221-9f04-e944-899f-4f845eda175b"],
+Cell[4877, 109, 173, 4, 22, "Print",ExpressionUUID->"409e7d34-ff75-cc4d-955a-06beba61aff8"]
+}, Open  ]]
+}
+]
+*)
+

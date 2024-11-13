@@ -1,0 +1,179 @@
+(* Content-type: application/vnd.wolfram.cdf.text *)
+
+(*** Wolfram CDF File ***)
+(* http://www.wolfram.com/cdf *)
+
+(* CreatedBy='Wolfram 14.1' *)
+
+(*************************************************************************)
+(*                                                                       *)
+(*                                                                       *)
+(*  This file was created under the Wolfram Enterprise licensing terms.  *)
+(*                                                                       *)
+(*       For additional information concerning CDF licensing see:        *)
+(*                                                                       *)
+(*        www.wolfram.com/cdf/adopting-cdf/licensing-options.html        *)
+(*                                                                       *)
+(*                                                                       *)
+(*                                                                       *)
+(*************************************************************************)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[      1060,         20]
+NotebookDataLength[      6434,        158]
+NotebookOptionsPosition[      6012,        140]
+NotebookOutlinePosition[      6416,        156]
+CellTagsIndexPosition[      6373,        153]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetDirectory", "[", 
+    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], " "}]], "Code",
+ CellChangeTimes->{{3.9349575425485687`*^9, 3.9349575499743156`*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"ed3c4449-cedd-8448-90a1-484f293f017b"],
+
+Cell[BoxData[
+ RowBox[{"<<", "CCompilerDriver`"}]], "Code",
+ CellChangeTimes->{{3.934957364753107*^9, 3.934957376239462*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"28c5e2f5-cc31-f544-aef2-ca45bafa07ea"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"test", " ", "=", " ", 
+  RowBox[{"CreateExecutable", "[", "\n", "\t", 
+   RowBox[{
+    RowBox[{
+    "File", "[", 
+     "\"\<C:\\\\Users\\\\Kirill\\\\Projects\\\\Internal\\\\Source\\\\test.c\>\
+\"", "]"}], ",", " ", "\n", "\t", "\"\<test\>\"", ",", " ", "\n", "\t", 
+    RowBox[{"\"\<TargetDirectory\>\"", " ", "->", " ", 
+     RowBox[{"Directory", "[", "]"}]}], ",", " ", "\n", "\t", 
+    RowBox[{"\"\<IncludeDirectories\>\"", " ", "->", " ", 
+     RowBox[{
+     "{", "\n", "\t\t", 
+      "\"\<C:\\\\Program Files\\\\Wolfram \
+Research\\\\Wolfram\\\\14.1\\\\SystemFiles\\\\Components\\\\\
+StandaloneApplicationsSDK\\\\Windows-x86-64\>\"", "\n", "\t", "}"}]}], ",", 
+    " ", "\n", "\t", 
+    RowBox[{"\"\<Libraries\>\"", " ", "->", " ", 
+     RowBox[{
+     "{", "\n", "\t\t", 
+      "\"\<C:\\\\Program Files\\\\Wolfram \
+Research\\\\Wolfram\\\\14.1\\\\SystemFiles\\\\Components\\\\\
+StandaloneApplicationsSDK\\\\Windows-x86-64\\\\StandaloneApplicationsSDK.lib\>\
+\"", "\n", "\t", "}"}]}]}], "\n", "]"}]}]], "Code",
+ CellChangeTimes->{{3.9349575019565296`*^9, 3.93495764719088*^9}, {
+  3.9349577859247437`*^9, 3.9349577894055996`*^9}, {3.9349578266239643`*^9, 
+  3.9349578370558777`*^9}, {3.934958273171583*^9, 3.9349583024386864`*^9}, {
+  3.9350254483243427`*^9, 3.9350254931537476`*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"e34fce3c-cb13-3c43-805d-f3c65396df4f"],
+
+Cell[BoxData["\<\"C:\\\\Users\\\\Kirill\\\\Projects\\\\Internal\\\\test.exe\"\
+\>"], "Output",
+ CellChangeTimes->{{3.9349576414256706`*^9, 3.9349576490681496`*^9}, 
+   3.9349577643650208`*^9, 3.934957839274357*^9, {3.934958279361231*^9, 
+   3.9349583038966904`*^9}, 3.9349583643494434`*^9, 3.934958402565529*^9, 
+   3.9349584462501106`*^9, 3.934958545631674*^9, 3.934958595303398*^9, 
+   3.934958795811243*^9, {3.934958833503706*^9, 3.9349588632343655`*^9}, {
+   3.934959193991352*^9, 3.9349592234067707`*^9}, 3.934959530480606*^9, 
+   3.93496003135812*^9, {3.9349601744837055`*^9, 3.9349601932273254`*^9}, 
+   3.9349602610266304`*^9, 3.934960390048254*^9, {3.935025486529772*^9, 
+   3.9350254956049614`*^9}},
+ CellLabel->"Out[5]=",ExpressionUUID->"b8e46d63-ed38-8645-b59c-9335cd6eff00"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Import", "[", 
+  RowBox[{
+   RowBox[{"\"\<!\>\"", " ", "<>", " ", 
+    RowBox[{"QuoteFile", "[", "test", "]"}]}], ",", " ", "\"\<Text\>\""}], 
+  "]"}]], "Code",
+ CellChangeTimes->{{3.9349576566354465`*^9, 3.9349576623193855`*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"2b064b1a-d349-e34b-85ee-dd74551454db"],
+
+Cell[BoxData["\<\"\"\>"], "Output",
+ CellChangeTimes->{
+  3.934957669210247*^9, 3.9349577717022743`*^9, {3.934957846234436*^9, 
+   3.9349578565937786`*^9}, {3.934958286984289*^9, 3.934958312009657*^9}},
+ CellLabel->"Out[17]=",ExpressionUUID->"261a39bb-4d0c-8343-a675-8bcd932f45a8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TextTranslation", "[", "\"\<Hello\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.9349587157656097`*^9, 3.934958761639496*^9}, {
+  3.9349588791278973`*^9, 3.934958879890032*^9}},
+ CellLabel->"In[29]:=",ExpressionUUID->"6c74bd57-dcec-3a42-ad15-a455f0ef0c5e"],
+
+Cell[BoxData["\<\"Hello\"\>"], "Output",
+ CellChangeTimes->{{3.9349587463880787`*^9, 3.934958774564146*^9}, 
+   3.934958884006962*^9},
+ CellLabel->"Out[29]=",ExpressionUUID->"1a98bde2-86d0-1042-9a6c-5688feca20f7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"WolframAlpha", "[", 
+  RowBox[{"\"\<Wheather in Saratov\>\"", ",", "\"\<ShortAnswer\>\""}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.934960314193434*^9, 3.9349603363841496`*^9}},
+ CellLabel->"In[39]:=",ExpressionUUID->"4e4190ea-6e68-2741-b4d1-bb56ee629ab2"],
+
+Cell[BoxData["\<\"The weather in Saratov, Russia, currently includes no \
+precipitation with mostly clear skies, a wind speed of 2 meters per second \
+and a temperature of 20 degrees Celsius\"\>"], "Output",
+ CellChangeTimes->{3.934960338289728*^9},
+ CellLabel->"Out[39]=",ExpressionUUID->"a84c2c76-305b-574e-8ebe-2d253c48843e"]
+}, Open  ]]
+},
+WindowSize->{718.5, 825},
+WindowMargins->{{264, Automatic}, {Automatic, 68.25}},
+FrontEndVersion->"14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2018012e-018c-f64a-ab9f-d5279a2e787c"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[1460, 33, 290, 6, 50, "Code",ExpressionUUID->"ed3c4449-cedd-8448-90a1-484f293f017b"],
+Cell[1753, 41, 203, 3, 50, "Code",ExpressionUUID->"28c5e2f5-cc31-f544-aef2-ca45bafa07ea"],
+Cell[CellGroupData[{
+Cell[1981, 48, 1390, 28, 225, "Code",ExpressionUUID->"e34fce3c-cb13-3c43-805d-f3c65396df4f"],
+Cell[3374, 78, 787, 11, 32, "Output",ExpressionUUID->"b8e46d63-ed38-8645-b59c-9335cd6eff00"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4198, 94, 333, 7, 50, "Code",ExpressionUUID->"2b064b1a-d349-e34b-85ee-dd74551454db"],
+Cell[4534, 103, 281, 4, 32, "Output",ExpressionUUID->"261a39bb-4d0c-8343-a675-8bcd932f45a8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4852, 112, 278, 4, 28, "Input",ExpressionUUID->"6c74bd57-dcec-3a42-ad15-a455f0ef0c5e"],
+Cell[5133, 118, 213, 3, 32, "Output",ExpressionUUID->"1a98bde2-86d0-1042-9a6c-5688feca20f7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5383, 126, 282, 5, 28, "Input",ExpressionUUID->"4e4190ea-6e68-2741-b4d1-bb56ee629ab2"],
+Cell[5668, 133, 328, 4, 70, "Output",ExpressionUUID->"a84c2c76-305b-574e-8ebe-2d253c48843e"]
+}, Open  ]]
+}
+]
+*)
+

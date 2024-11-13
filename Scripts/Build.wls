@@ -9,7 +9,7 @@ $libraryLinkVersion =
 LibraryVersionInformation[FindLibrary["demo"]]["WolframLibraryVersion"]; 
 
 
-Block[{$directory, $libSrc, $libDir, $linkerOptions}, 
+build[lib_String] := Block[{$directory, $libSrc, $libDir, $linkerOptions}, 
 	$directory = DirectoryName[If[$InputFileName == "", 
 		NotebookFileName[], 
 		$InputFileName
@@ -18,7 +18,7 @@ Block[{$directory, $libSrc, $libDir, $linkerOptions},
 	$libSrc = File[FileNameJoin[{
 		$directory, 
 		"Source", 
-		"internal.c"
+		lib <> ".c"
 	}]]; 
 
 	$libDir = FileNameJoin[{
@@ -30,8 +30,14 @@ Block[{$directory, $libSrc, $libDir, $linkerOptions},
 
 	If[!FileExistsQ[$libDir], CreateDirectory[]];
 
-	CreateLibrary[$libSrc, "internal", 
+	CreateLibrary[$libSrc, lib, 
 		"TargetDirectory" -> $libDir, 
-		"Debug" -> False
+		"Debug" -> False, 
+		"TransferProtocolLibrary" -> "WSTP"
 	]
 ]; 
+
+build["internal"]; 
+
+
+build["backgroundTask"]; 
