@@ -9,35 +9,36 @@ $libraryLinkVersion =
 LibraryVersionInformation[FindLibrary["demo"]]["WolframLibraryVersion"]; 
 
 
-build[lib_String] := Block[{$directory, $libSrc, $libDir, $linkerOptions}, 
-	$directory = DirectoryName[If[$InputFileName == "", 
-		NotebookFileName[], 
-		$InputFileName
-	], 2]; 
+build[lib_String, opts: OptionsPattern[CreateLibrary]] := 
+Block[{$directory, $libSrc, $libDir, $linkerOptions}, 
+    $directory = DirectoryName[If[$InputFileName == "", 
+        NotebookFileName[], 
+        $InputFileName
+    ], 2]; 
 
-	$libSrc = File[FileNameJoin[{
-		$directory, 
-		"Source", 
-		lib <> ".c"
-	}]]; 
+    $libSrc = File[FileNameJoin[{
+        $directory, 
+        "Source", 
+        lib <> ".c"
+    }]]; 
 
-	$libDir = FileNameJoin[{
-		$directory, 
-		"LibraryResources", 
-		$SystemID <> "-v" <> ToString[$libraryLinkVersion]
-	}]; 
+    $libDir = FileNameJoin[{
+        $directory, 
+        "LibraryResources", 
+        $SystemID <> "-v" <> ToString[$libraryLinkVersion]
+    }]; 
 
 
-	If[!FileExistsQ[$libDir], CreateDirectory[]];
+    If[!FileExistsQ[$libDir], CreateDirectory[]];
 
-	CreateLibrary[$libSrc, lib, 
-		"TargetDirectory" -> $libDir, 
-		"Debug" -> False, 
-		"TransferProtocolLibrary" -> "WSTP"
-	]
+    CreateLibrary[$libSrc, lib, 
+        "TargetDirectory" -> $libDir, 
+        "Debug" -> False, 
+        opts
+    ]
 ]; 
 
 build["internal"]; 
 
 
-build["backgroundTask"]; 
+build["backgroundAsyncTask"]; 
