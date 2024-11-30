@@ -14,21 +14,18 @@ DLLEXPORT void WolframLibrary_uninitialize(WolframLibraryData libData) {
     return;
 }
 
-typedef struct {
+typedef struct ThreadArgs_st {
     WolframLibraryData libData;
-    mint id;
-    mint timeoutMSec;
-    mint runCount; 
-    int shouldContinue; 
-} ThreadArgs;
+    mint interval;
+    mint count; 
+}* ThreadArgs;
 
 static void runBackgroundTask(mint taskId, void* args) 
 {
-    ThreadArgs* threadArgs = (ThreadArgs*)args;
+    ThreadArgs threadArgs = (ThreadArgs)args;
     WolframLibraryData libData = threadArgs->libData;
-    mint id = threadArgs->id;
-    mint timeoutMSec = threadArgs->timeoutMSec;
-    mint runCount = threadArgs->runCount;
+    mint interval = threadArgs->interval;
+    mint count = threadArgs->count;
 
     DataStore ds;
     mint n = 0;
@@ -36,11 +33,10 @@ static void runBackgroundTask(mint taskId, void* args)
     while (libData->ioLibraryFunctions->asynchronousTaskAliveQ(taskId)) {
         ds = libData->ioLibraryFunctions->createDataStore();
         libData->ioLibraryFunctions->DataStore_addInteger(ds, n++);
-        libData->ioLibraryFunctions->DataStore_addInteger(ds, runCount);
-        libData->ioLibraryFunctions->DataStore_addInteger(ds, id);
-        libData->ioLibraryFunctions->raiseAsyncEvent(taskId, "BackgroundTask", ds);
+        libData->ioLibraryFunctions->DataStore_addInteger(ds, count);
+        libData->ioLibraryFunctions->raiseAsyncEvent(taskId, "BackgroundTaskEvent", ds);
         #ifdef _WIN32
-        Sleep(timeoutMSec); 
+        Sleep(interval); 
         #else
         struct timespec req = {0, timeoutMSec * 1000000L}; 
         nanosleep(&req, NULL);
@@ -53,27 +49,25 @@ static void runBackgroundTask(mint taskId, void* args)
 }
 
 DLLEXPORT int startBackgroundTask(WolframLibraryData libData, mint Argc, MArgument *Args, MArgument Res) {
-    if (Argc != 3) {
+    if (Argc != 2) {
         return LIBRARY_FUNCTION_ERROR;
     }
 
-    mint id = MArgument_getInteger(Args[0]);
-    int timeoutMSec = MArgument_getInteger(Args[1]);
-    int runCount = MArgument_getInteger(Args[2]);
+    int interval = MArgument_getInteger(Args[0]);
+    int count = MArgument_getInteger(Args[1]);
     
-    if (id <= 0 || timeoutMSec <= 0 || runCount <= 0) {
+    if (interval <= 0 || count <= 0) {
         return LIBRARY_FUNCTION_ERROR;
     }
 
-    ThreadArgs* threadArgs = (ThreadArgs*)malloc(sizeof(ThreadArgs));
+    ThreadArgs threadArgs = (ThreadArgs)malloc(sizeof(struct ThreadArgs_st));
     if (threadArgs == NULL) {
         return LIBRARY_FUNCTION_ERROR;
     }
 
     threadArgs->libData = libData;
-    threadArgs->id = id;
-    threadArgs->timeoutMSec = timeoutMSec;
-    threadArgs->runCount = runCount;
+    threadArgs->interval = interval;
+    threadArgs->count = count;
 
     int taskId = libData->ioLibraryFunctions->createAsynchronousTaskWithThread(runBackgroundTask, threadArgs);
 

@@ -17,6 +17,10 @@ LibraryResourcesDirectory::usage =
 "LibraryResourcesDirectory[path] returns directory with compiled binaries where path is paclet dirctory or $InputFileName."; 
 
 
+LibraryResource::usage = 
+"LibraryResource[path, name] returns full path to dynamic library according with operation system and LibraryLink version."; 
+
+
 $LibraryLinkVersion::usage = 
 "Current version of the LibraryLink package."; 
 
@@ -59,6 +63,10 @@ FileNameJoin[{
     "LibraryResources", 
     $SystemID <> "-v" <> ToString[$LibraryLinkVersion]
 }]; 
+
+
+LibraryResource[path_, name_String] := 
+FileNameJoin[{LibraryResourcesDirectory[path], name <> "." <> Internal`DynamicLibraryExtension[]}]
 
 
 $directory = 

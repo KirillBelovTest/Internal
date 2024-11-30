@@ -1,13 +1,9 @@
 (*:Package:*)
 
-BeginPackage["KirillBelov`Internal`"]; 
+BeginPackage["KirillBelov`Internal`Funcs`"]; 
 
 
 ClearAll["`*"]; 
-
-
-PreCompile::usage = 
-"PreCompile[name, func] load if library exists and compliling if not"; 
 
 
 ConditionApply::usage = 
@@ -17,18 +13,6 @@ ConditionApply::usage =
 Cache::usage = 
 "Cache[expr] cache expr for one minute
 Cache[expr, period] cache expr for specific period"; 
-
-
-BytesPosition::usage = 
-"BytesPosition[data, sep, n] n position of sep in data"; 
-
-
-BytesSplit::usage = 
-"BytesSplit[data, sep -> n] works like Map[StringJoin, TakeDrop[StringSplit[text, sep], n]]"; 
-
-
-ByteMask::usage = 
-"ByteMask[mask, numericArray] returns masked numeric array."; 
 
 
 AssocMatchQ::usage = 
@@ -42,16 +26,6 @@ AssocBlock::usage =
 
 
 AssocFunction
-
-
-CreateBackgroundTask::usage = 
-"CreateBackgroundTask[expr, {timeSpec, runCount}] run expr in background like in ScheduledTask."; 
-
-
-WolframAlphaTextPod
-
-
-$LibraryLinkVersion
 
 
 Begin["`Private`"]; 
