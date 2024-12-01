@@ -15,10 +15,10 @@ PacletObject[
 				"Root" -> "Kernel", 
 				"Context" -> {
 					{"KirillBelov`Internal`", "Internal.wl"}, 
-					{"KirillBelov`Internal`", "Compilation.wl"}, 
-					{"KirillBelov`Internal`", "Binary.wl"}, 
-					{"KirillBelov`Internal`", "Tasks.wl"}, 
-					{"KirillBelov`Internal`", "Funcs.wl"}
+					{"KirillBelov`Internal`Compilation`", "Compilation.wl"}, 
+					{"KirillBelov`Internal`Binary`", "Binary.wl"}, 
+					{"KirillBelov`Internal`Tasks`", "Tasks.wl"}, 
+					{"KirillBelov`Internal`Funcs`", "Funcs.wl"}
 				}, 
 				"Symbols" -> {}
 			}, 

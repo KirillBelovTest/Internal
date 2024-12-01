@@ -1,3 +1,5 @@
+#pragma region ritual
+
 #include "WolframLibrary.h"
 #include "WolframIOLibraryFunctions.h"
 #include "WolframNumericArrayLibrary.h"
@@ -14,11 +16,19 @@ DLLEXPORT void WolframLibrary_uninitialize(WolframLibraryData libData) {
     return;
 }
 
+#pragma endregion
+
+#pragma region struct
+
 typedef struct ThreadArgs_st {
     WolframLibraryData libData;
     mint interval;
     mint count; 
 }* ThreadArgs;
+
+#pragma endregion
+
+#pragma region runBackgroundTask
 
 static void runBackgroundTask(mint taskId, void* args) 
 {
@@ -41,12 +51,17 @@ static void runBackgroundTask(mint taskId, void* args)
         struct timespec req = {0, timeoutMSec * 1000000L}; 
         nanosleep(&req, NULL);
         #endif
+        if (n >= count) break;
     }
  
     free(threadArgs); 
 
     return LIBRARY_NO_ERROR;
 }
+
+#pragma endregion
+
+#pragma region startBackgroundTask
 
 DLLEXPORT int startBackgroundTask(WolframLibraryData libData, mint Argc, MArgument *Args, MArgument Res) {
     if (Argc != 2) {
@@ -75,6 +90,10 @@ DLLEXPORT int startBackgroundTask(WolframLibraryData libData, mint Argc, MArgume
     return LIBRARY_NO_ERROR;
 }
 
+#pragma endregion
+
+#pragma region stopBackgroundTask
+
 DLLEXPORT int stopBackgroundTask(WolframLibraryData libData, mint Argc, MArgument *Args, MArgument Res) {
     if (Argc != 1) {
         return LIBRARY_FUNCTION_ERROR;
@@ -90,3 +109,5 @@ DLLEXPORT int stopBackgroundTask(WolframLibraryData libData, mint Argc, MArgumen
     
     return LIBRARY_NO_ERROR;
 }
+
+#pragma endregion

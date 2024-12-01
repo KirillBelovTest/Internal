@@ -4,9 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/Program Files/Wolfram Research/Wolfram/14.1/SystemFiles/IncludeFiles/C",
-                "C:/Program Files/Wolfram Research/Wolfram/14.1/SystemFiles/Components/StandaloneApplicationsSDK/Windows-x86-64", 
-                "C:/Program Files/Wolfram Research/Wolfram/14.1/SystemFiles/Links/WSTP/DeveloperKit/Windows-x86-64/CompilerAdditions"
+                "C:/${WOLFRAM_SYSTEM_DIRECTORY}/SystemFiles/IncludeFiles/C",
+                "C:/${WOLFRAM_SYSTEM_DIRECTORY}/SystemFiles/Components/StandaloneApplicationsSDK/Windows-x86-64"
             ],
             "defines": [
                 "_DEBUG",
