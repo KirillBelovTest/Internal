@@ -1,3 +1,5 @@
 /build
 *.dll
 .fake
+*.exp
+*.lib
