@@ -57,9 +57,9 @@ With[{
 
 
 Options[AsyncEvaluate] := {
-    "LaunchKernels" -> 2, 
-    "CheckInterval" -> 0.1, 
-    "TimeConstrained" -> 10, 
+    "LaunchKernels" :> 4, 
+    "CheckInterval" :> 0.01, 
+    "TimeConstrained" :> 10, 
     "DistributeDefinitions" -> {}
 }; 
 
