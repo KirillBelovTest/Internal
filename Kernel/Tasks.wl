@@ -102,7 +102,8 @@ $backgroundTaskLibrary =
 LibraryResource[$directory, "backgroundTask"]; 
 
 
-startBackgroundTask = LibraryFunctionLoad[$backgroundTaskLibrary, "startBackgroundTask", {Integer, Integer}, Integer]; 
+startBackgroundTask = 
+LibraryFunctionLoad[$backgroundTaskLibrary, "startBackgroundTask", {Integer, Integer}, Integer]; 
 
 
 End[]; 
