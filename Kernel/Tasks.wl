@@ -47,7 +47,7 @@ With[{
                 expr; 
 
                 If[stopCondition[##], 
-                    stopBackgroundTask[#1[[2]]]
+                    StopAsynchronousTask[#1]
                 ];
             ]; 
         )&
@@ -59,7 +59,6 @@ Options[ParallelAsyncEvaluate] := {
     "LaunchKernels" -> 2, 
     "CheckInterval" -> 0.1, 
     "TimeConstrained" -> 10, 
-    "ResultHandler" -> Function[Null], 
     "DistributeDefinitions" -> {}
 }; 
 
@@ -67,9 +66,8 @@ Options[ParallelAsyncEvaluate] := {
 SetAttributes[ParallelAsyncEvaluate, HoldFirst]; 
 
 
-ParallelAsyncEvaluate[expr_, OptionsPattern[]] := 
+ParallelAsyncEvaluate[expr_, finish_, OptionsPattern[]] := 
 With[{
-    resultHandler = OptionValue["ResultHandler"], 
     checkInterval = OptionValue["CheckInterval"], 
     timeConstrained = OptionValue["TimeConstrained"]
 },
@@ -84,7 +82,7 @@ With[{
             Parallel`Developer`QueueRun[]; 
 
             If[Parallel`Developer`DoneQ[task], 
-                resultHandler[ReleaseHold[task["Result"]]]; 
+                finish[ReleaseHold[task["Result"]]]; 
             ], 
 
             {checkInterval, Round[timeConstrained / checkInterval]}, 
