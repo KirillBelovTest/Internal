@@ -23,10 +23,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[      1060,         20]
-NotebookDataLength[      1908,         60]
-NotebookOptionsPosition[      2363,         58]
-NotebookOutlinePosition[      2768,         74]
-CellTagsIndexPosition[      2725,         71]
+NotebookDataLength[      2361,         74]
+NotebookOptionsPosition[      2784,         71]
+NotebookOutlinePosition[      3218,         88]
+CellTagsIndexPosition[      3175,         85]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -43,21 +43,35 @@ Cell[BoxData[{
   " "}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"Get", "[", "\"\<KirillBelov`Internal`Tasks`\>\"", "]"}], ";"}], 
+   RowBox[{"Get", "[", "\"\<KirillBelov`Internal`\>\"", "]"}], ";"}], 
   " "}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"Once", "[", 
     RowBox[{"LaunchKernels", "[", "]"}], "]"}], ";"}], " "}]}], "Code",
- CellChangeTimes->{{3.942114119235327*^9, 3.942114125945223*^9}, {
-  3.9421143579368305`*^9, 3.942114358425932*^9}, {3.942114393385689*^9, 
-  3.9421144123046207`*^9}, {3.94212061908078*^9, 3.9421206291993866`*^9}},
  CellLabel->"In[1]:=",ExpressionUUID->"de9607dd-0d67-5945-b8e1-cc0e4f9c3841"],
 
-Cell[BoxData[""], "Code",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"]
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"AsyncEvaluate", "[", 
+    RowBox[{
+     RowBox[{"CloudEvaluate", "[", 
+      RowBox[{"URLRead", "[", "\"\<https://wolfram.com\>\"", "]"}], "]"}], 
+     ",", " ", "Echo", ",", " ", "\n", "\t", 
+     RowBox[{"\"\<CheckInterval\>\"", " ", "->", " ", "0.001"}], ",", " ", 
+     "\n", "\t", 
+     RowBox[{"\"\<DistributeDefinitions\>\"", " ", "->", " ", 
+      RowBox[{"{", "}"}]}], ",", " ", "\n", "\t", 
+     RowBox[{"\"\<LaunchKernels\>\"", " ", "->", " ", "2"}], ",", " ", "\n", 
+     "\t", 
+     RowBox[{"\"\<TimeConstrained\>\"", " ", "->", " ", "20"}]}], "\n", "]"}],
+    ";"}], " "}]], "Code",
+ CellLabel->"In[14]:=",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"]
 },
 WindowSize->{771, 609.75},
 WindowMargins->{{Automatic, -3.75}, {Automatic, 1.5}},
+TrackCellChangeTimes->False,
 FrontEndVersion->"14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"5aba7f31-97cc-1749-ba67-4a36a0f482c4"
@@ -73,8 +87,8 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[1460, 33, 816, 21, 102, "Code",ExpressionUUID->"de9607dd-0d67-5945-b8e1-cc0e4f9c3841"],
-Cell[2279, 56, 80, 0, 50, "Code",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"]
+Cell[1460, 33, 595, 18, 102, "Code",ExpressionUUID->"de9607dd-0d67-5945-b8e1-cc0e4f9c3841"],
+Cell[2058, 53, 722, 16, 137, "Code",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"]
 }
 ]
 *)

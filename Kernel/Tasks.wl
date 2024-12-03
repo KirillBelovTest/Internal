@@ -18,8 +18,8 @@ AsyncEvaluate::usage =
 "AsyncEvaluate[expr, finish] evaluates expression on parallel kernel and call finish[result] function on master kernel."; 
 
 
-$BackgroundTask::usage = 
-"Current background task."; 
+$BackgroundEvent::usage = 
+"Current background task event."; 
 
 
 Begin["`Private`"]; 
@@ -43,11 +43,12 @@ With[{
         {intervalMs, count}, 
         (
             PreemptProtect[
-                $BackgroundTask = {##};
+                $BackgroundEvent = {##};
                 expr; 
 
                 If[stopCondition[##], 
-                    StopAsynchronousTask[#1]
+                    StopAsynchronousTask[#1]; 
+                    RemoveAsynchronousTask[#1]; 
                 ];
             ]; 
         )&
