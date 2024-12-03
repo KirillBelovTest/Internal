@@ -1,5 +1,3 @@
-#pragma region ritual
-
 #include "WolframLibrary.h"
 #include "WolframIOLibraryFunctions.h"
 #include "WolframNumericArrayLibrary.h"
@@ -16,19 +14,11 @@ DLLEXPORT void WolframLibrary_uninitialize(WolframLibraryData libData) {
     return;
 }
 
-#pragma endregion
-
-#pragma region struct
-
 typedef struct ThreadArgs_st {
     WolframLibraryData libData;
     mint interval;
     mint count; 
 }* ThreadArgs;
-
-#pragma endregion
-
-#pragma region runBackgroundTask
 
 static void runBackgroundTask(mint taskId, void* args) 
 {
@@ -59,10 +49,6 @@ static void runBackgroundTask(mint taskId, void* args)
     return LIBRARY_NO_ERROR;
 }
 
-#pragma endregion
-
-#pragma region startBackgroundTask
-
 DLLEXPORT int startBackgroundTask(WolframLibraryData libData, mint Argc, MArgument *Args, MArgument Res) {
     if (Argc != 2) {
         return LIBRARY_FUNCTION_ERROR;
@@ -89,25 +75,3 @@ DLLEXPORT int startBackgroundTask(WolframLibraryData libData, mint Argc, MArgume
     MArgument_setInteger(Res, taskId); 
     return LIBRARY_NO_ERROR;
 }
-
-#pragma endregion
-
-#pragma region stopBackgroundTask
-
-DLLEXPORT int stopBackgroundTask(WolframLibraryData libData, mint Argc, MArgument *Args, MArgument Res) {
-    if (Argc != 1) {
-        return LIBRARY_FUNCTION_ERROR;
-    }
-
-    mint taskId = MArgument_getInteger(Args[0]);
-    
-    if (libData->ioLibraryFunctions->asynchronousTaskAliveQ(taskId)) {
-        int result = libData->ioLibraryFunctions->removeAsynchronousTask(taskId);
-    }
-
-    MArgument_setInteger(Res, taskId); 
-    
-    return LIBRARY_NO_ERROR;
-}
-
-#pragma endregion

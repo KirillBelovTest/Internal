@@ -14,8 +14,8 @@ CreateBackgroundTask::usage =
 "CreateBackgroundTask[expr, {interval, count}] run expr in background like in ScheduledTask where interval in seconds."; 
 
 
-ParallelAsyncEvaluate::usage = 
-"ParallelAsyncEvaluate[expr] evaluates expression on parallel kernel."; 
+AsyncEvaluate::usage = 
+"AsyncEvaluate[expr, finish] evaluates expression on parallel kernel and call finish[result] function on master kernel."; 
 
 
 $BackgroundTask::usage = 
@@ -55,7 +55,7 @@ With[{
 ]; 
 
 
-Options[ParallelAsyncEvaluate] := {
+Options[AsyncEvaluate] := {
     "LaunchKernels" -> 2, 
     "CheckInterval" -> 0.1, 
     "TimeConstrained" -> 10, 
@@ -63,10 +63,10 @@ Options[ParallelAsyncEvaluate] := {
 }; 
 
 
-SetAttributes[ParallelAsyncEvaluate, HoldFirst]; 
+SetAttributes[AsyncEvaluate, HoldFirst]; 
 
 
-ParallelAsyncEvaluate[expr_, finish_, OptionsPattern[]] := 
+AsyncEvaluate[expr_, finish_, OptionsPattern[]] := 
 With[{
     checkInterval = OptionValue["CheckInterval"], 
     timeConstrained = OptionValue["TimeConstrained"]
@@ -102,9 +102,6 @@ LibraryResource[$directory, "backgroundTask"];
 
 
 startBackgroundTask = LibraryFunctionLoad[$backgroundTaskLibrary, "startBackgroundTask", {Integer, Integer}, Integer]; 
-
-
-stopBackgroundTask = LibraryFunctionLoad[$backgroundTaskLibrary, "stopBackgroundTask", {Integer}, Integer]; 
 
 
 End[]; 

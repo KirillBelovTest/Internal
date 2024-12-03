@@ -23,10 +23,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[      1060,         20]
-NotebookDataLength[      7611,        193]
-NotebookOptionsPosition[      7287,        181]
-NotebookOutlinePosition[      7689,        197]
-CellTagsIndexPosition[      7646,        194]
+NotebookDataLength[      1908,         60]
+NotebookOptionsPosition[      2363,         58]
+NotebookOutlinePosition[      2768,         74]
+CellTagsIndexPosition[      2725,         71]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -54,133 +54,10 @@ Cell[BoxData[{
   3.9421144123046207`*^9}, {3.94212061908078*^9, 3.9421206291993866`*^9}},
  CellLabel->"In[1]:=",ExpressionUUID->"de9607dd-0d67-5945-b8e1-cc0e4f9c3841"],
 
-Cell[BoxData[
- RowBox[{"Get", "[", "\"\<Parallel`Developer`\>\"", "]"}]], "Code",
- CellChangeTimes->{{3.9421157469596825`*^9, 3.94211575380818*^9}},
- CellLabel->"In[5]:=",ExpressionUUID->"459b7e63-564d-6f46-806e-ada5c9ed7e8d"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{"SetAttributes", "[", 
-    RowBox[{"async", ",", " ", "HoldFirst"}], "]"}], ";"}], " "}]], "Code",
- CellChangeTimes->{{3.942118067460066*^9, 3.942118078292351*^9}},
- CellLabel->"In[6]:=",ExpressionUUID->"b57b156e-32ae-7c4f-b019-473c318bcc17"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"async", "[", "expr_", "]"}], " ", ":=", " ", 
-    RowBox[{"With", "[", 
-     RowBox[{
-      RowBox[{"{", "\n", "\t", 
-       RowBox[{"task", " ", "=", " ", 
-        RowBox[{"ParallelSubmit", "[", "expr", "]"}]}], "\n", "}"}], ",", " ",
-       "\n", "\t", 
-      RowBox[{"CreateBackgroundTask", "[", "\n", "\t\t", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"QueueRun", "[", "]"}], ";", " ", "\n", "\t\t", 
-         RowBox[{"If", "[", 
-          RowBox[{
-           RowBox[{"DoneQ", "[", "task", "]"}], ",", " ", 
-           RowBox[{"Echo", "[", 
-            RowBox[{"ReleaseHold", "[", 
-             RowBox[{"task", "[", "\"\<Result\>\"", "]"}], "]"}], "]"}]}], 
-          "]"}]}], ",", " ", "\n", "\t\t", 
-        RowBox[{"{", 
-         RowBox[{"0.1", ",", " ", "1000"}], "}"}], ",", " ", "\n", "\t\t", 
-        RowBox[{"\"\<StopCondition\>\"", " ", "->", " ", 
-         RowBox[{"Function", "[", 
-          RowBox[{"DoneQ", "[", "task", "]"}], "]"}]}]}], "\n", "\t", "]"}]}],
-      "\n", "]"}]}], ";"}], " "}]], "Code",
- CellChangeTimes->{{3.9421162561781693`*^9, 3.9421162987193336`*^9}, {
-   3.942116340080387*^9, 3.9421163880019226`*^9}, {3.942116523247328*^9, 
-   3.9421166380392456`*^9}, {3.9421167168395786`*^9, 
-   3.9421167888718643`*^9}, {3.9421169036236687`*^9, 
-   3.9421169051909313`*^9}, {3.9421178090687637`*^9, 3.942117813814554*^9}, {
-   3.942117921876137*^9, 3.9421179828997383`*^9}, {3.942118047464115*^9, 
-   3.942118088950409*^9}, {3.942118252116514*^9, 3.942118255259468*^9}, {
-   3.94211833973431*^9, 3.9421183399241104`*^9}, 3.9421206609989376`*^9},
- CellLabel->"In[7]:=",ExpressionUUID->"ec796fe1-6b4c-e040-ae8f-c9206de16587"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{
-   RowBox[{"async", "[", 
-    RowBox[{"URLRead", "[", "\"\<https://wolfram.com\>\"", "]"}], "]"}], 
-   ";"}], " "}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{"async", "[", 
-    RowBox[{"URLRead", "[", "\"\<https://wolfram.com\>\"", "]"}], "]"}], 
-   ";"}], " "}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{"async", "[", 
-    RowBox[{"URLRead", "[", "\"\<https://wolfram.com\>\"", "]"}], "]"}], 
-   ";"}], " "}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{"async", "[", 
-    RowBox[{"URLRead", "[", "\"\<https://wolfram.com\>\"", "]"}], "]"}], 
-   ";"}], " "}]}], "Code",
- CellChangeTimes->{{3.942118118247652*^9, 3.942118156596302*^9}, {
-  3.9421207126583385`*^9, 
-  3.9421207469657784`*^9}},ExpressionUUID->"5af90554-4aee-8b4f-aeeb-\
-a2f755c72696"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"AsynchronousTaskObject", "[", "\<\"\"\>", ",", "1", ",", 
-   RowBox[{" ", "<>"}], "]"}],
-  AsynchronousTaskObject["", 1, 22038627286246658505]]], "Output",
- CellChangeTimes->{{3.942118122621025*^9, 3.9421181632519913`*^9}, 
-   3.942118261196537*^9, 3.9421183110074787`*^9, 3.9421183517679214`*^9, 
-   3.942120702787363*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"dcf66c0a-fd98-cc45-872a-8f6bfdaee47d"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"AsynchronousTaskObject", "[", "\<\"\"\>", ",", "2", ",", 
-   RowBox[{" ", "<>"}], "]"}],
-  AsynchronousTaskObject["", 2, 22038627286246658505]]], "Output",
- CellChangeTimes->{{3.942118122621025*^9, 3.9421181632519913`*^9}, 
-   3.942118261196537*^9, 3.9421183110074787`*^9, 3.9421183517679214`*^9, 
-   3.942120702787363*^9},
- CellLabel->"Out[9]=",ExpressionUUID->"d36513ec-77fa-2946-bf35-2083b6428e68"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"AsynchronousTaskObject", "[", "\<\"\"\>", ",", "3", ",", 
-   RowBox[{" ", "<>"}], "]"}],
-  AsynchronousTaskObject["", 3, 22038627286246658505]]], "Output",
- CellChangeTimes->{{3.942118122621025*^9, 3.9421181632519913`*^9}, 
-   3.942118261196537*^9, 3.9421183110074787`*^9, 3.9421183517679214`*^9, 
-   3.942120702787363*^9},
- CellLabel->"Out[10]=",ExpressionUUID->"68b865d4-0386-134c-be6c-a52b5984554c"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"AsynchronousTaskObject", "[", "\<\"\"\>", ",", "4", ",", 
-   RowBox[{" ", "<>"}], "]"}],
-  AsynchronousTaskObject["", 4, 22038627286246658505]]], "Output",
- CellChangeTimes->{{3.942118122621025*^9, 3.9421181632519913`*^9}, 
-   3.942118261196537*^9, 3.9421183110074787`*^9, 3.9421183517679214`*^9, 
-   3.942120702787363*^9},
- CellLabel->"Out[11]=",ExpressionUUID->"b81e2024-f4af-4d42-9163-1375c014a25f"]
-}, Open  ]],
-
-Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.942120812809393*^9, 
-  3.942120814584347*^9}},ExpressionUUID->"50c2800c-e63f-3142-a12b-\
-94125958602a"]
+Cell[BoxData[""], "Code",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"]
 },
-WindowSize->{747, 444.75},
-WindowMargins->{{Automatic, 0}, {Automatic, 3.75}},
+WindowSize->{771, 609.75},
+WindowMargins->{{Automatic, -3.75}, {Automatic, 1.5}},
 FrontEndVersion->"14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"5aba7f31-97cc-1749-ba67-4a36a0f482c4"
@@ -197,17 +74,7 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[1460, 33, 816, 21, 102, "Code",ExpressionUUID->"de9607dd-0d67-5945-b8e1-cc0e4f9c3841"],
-Cell[2279, 56, 226, 3, 50, "Code",ExpressionUUID->"459b7e63-564d-6f46-806e-ada5c9ed7e8d"],
-Cell[2508, 61, 288, 6, 50, "Code",ExpressionUUID->"b57b156e-32ae-7c4f-b019-473c318bcc17"],
-Cell[2799, 69, 1718, 36, 208, "Code",ExpressionUUID->"ec796fe1-6b4c-e040-ae8f-c9206de16587"],
-Cell[CellGroupData[{
-Cell[4542, 109, 776, 24, 102, "Code",ExpressionUUID->"5af90554-4aee-8b4f-aeeb-a2f755c72696"],
-Cell[5321, 135, 446, 8, 32, "Output",ExpressionUUID->"dcf66c0a-fd98-cc45-872a-8f6bfdaee47d"],
-Cell[5770, 145, 446, 8, 32, "Output",ExpressionUUID->"d36513ec-77fa-2946-bf35-2083b6428e68"],
-Cell[6219, 155, 447, 8, 32, "Output",ExpressionUUID->"68b865d4-0386-134c-be6c-a52b5984554c"],
-Cell[6669, 165, 447, 8, 32, "Output",ExpressionUUID->"b81e2024-f4af-4d42-9163-1375c014a25f"]
-}, Open  ]],
-Cell[7131, 176, 152, 3, 28, "Input",ExpressionUUID->"50c2800c-e63f-3142-a12b-94125958602a"]
+Cell[2279, 56, 80, 0, 50, "Code",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"]
 }
 ]
 *)

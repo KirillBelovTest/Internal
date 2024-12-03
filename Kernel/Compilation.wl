@@ -74,36 +74,23 @@ DirectoryName[$InputFileName, 2];
 
 
 getLibraryLinkVersion[] := 
-Module[{source, lib, version, getLibraryLinkVerionFunc}, 
-    source = "\
-#include \"WolframLibrary.h\"
-
-DLLEXPORT mint WolframLibrary_getVersion() {
-    return WolframLibraryVersion;
-}
-
-DLLEXPORT int WolframLibrary_initialize(WolframLibraryData libData) {
-    return 0;
-}
-
-DLLEXPORT int getLibraryLinkVersion(WolframLibraryData libData, mint Argc, MArgument *Args, MArgument Res){
-    MArgument_setInteger(Res, WolframLibrary_getVersion()); 
-    return LIBRARY_NO_ERROR; 
-}"; 
-
-    lib = CreateLibrary[source, "getLibraryLinkVersion", 
-        "TargetDirectory" -> Directory[], 
-        "Debug" -> False
-    ]; 
-
-    getLibraryLinkVerionFunc = LibraryFunctionLoad[lib, "getLibraryLinkVersion", {}, Integer]; 
-    version = getLibraryLinkVerionFunc[]; 
-
-    LibraryFunctionUnload[getLibraryLinkVerionFunc]; 
-
-    DeleteFile[lib]; 
-
-    version
+Which[
+    $VersionNumber >= 14.1, 
+        LibraryVersionInformation[FindLibrary["demo"]]["WolframLibraryVersion"], 
+    $VersionNumber >= 13.1, 
+        7, 
+    $VersionNumber >= 12.1, 
+        6, 
+    $VersionNumber >= 12.0, 
+        5, 
+    $VersionNumber >= 11.2, 
+        4, 
+    $VersionNumber >= 10.0, 
+        3, 
+    $VersionNumber >= 9.0, 
+        2, 
+    True, 
+        1
 ]; 
 
 
