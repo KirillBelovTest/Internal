@@ -7,7 +7,7 @@ PacletObject[
     "Creator" -> "Kirill Belov",
     "License" -> "MIT",
     "PublisherID" -> "KirillBelov",
-    "Version" -> "1.0.7",
+    "Version" -> "1.0.8",
     "WolframVersion" -> "13+",
     "Extensions" -> {
       {
@@ -32,7 +32,7 @@ PacletObject[
             "Funcs.wl"
           }
         },
-        "Symbols" -> {"KirillBelov`Internal`AssocMatchQ"}
+        "Symbols" -> {}
       },
       {"Documentation", "Language" -> "English"},
       {"LibraryLink", "Root" -> "LibraryResources"},
