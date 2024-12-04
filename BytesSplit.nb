@@ -1,0 +1,242 @@
+(* Content-type: application/vnd.wolfram.cdf.text *)
+
+(*** Wolfram CDF File ***)
+(* http://www.wolfram.com/cdf *)
+
+(* CreatedBy='Wolfram 14.1' *)
+
+(*************************************************************************)
+(*                                                                       *)
+(*                                                                       *)
+(*  This file was created under the Wolfram Enterprise licensing terms.  *)
+(*                                                                       *)
+(*       For additional information concerning CDF licensing see:        *)
+(*                                                                       *)
+(*        www.wolfram.com/cdf/adopting-cdf/licensing-options.html        *)
+(*                                                                       *)
+(*                                                                       *)
+(*                                                                       *)
+(*************************************************************************)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[      1060,         20]
+NotebookDataLength[      8428,        221]
+NotebookOptionsPosition[      7918,        203]
+NotebookOutlinePosition[      8352,        220]
+CellTagsIndexPosition[      8309,        217]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"$HistoryLength", " ", "=", " ", "0"}], ";"}], " "}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetDirectory", "[", 
+    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], " "}], "\n", 
+ RowBox[{"<<", "KirillBelov`Internal`"}]}], "Code",
+ CellLabel->"In[1]:=",ExpressionUUID->"612d078f-7fd9-ef43-bfc8-5d1cae0e37b2"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"data", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"URLRead", "[", "\"\<https://wolfram.com\>\"", "]"}], "[", 
+     "\"\<BodyByteArray\>\"", "]"}]}], ";"}], " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"sep", " ", "=", " ", 
+    RowBox[{"data", "[", 
+     RowBox[{"[", 
+      RowBox[{"1000", " ", ";;", " ", "1003"}], "]"}], "]"}]}], ";"}], 
+  " "}]}], "Code",
+ CellLabel->"In[4]:=",ExpressionUUID->"49930bba-9f35-b340-be8e-4c5a60056387"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"bytesPosition", " ", "=", " ", 
+    RowBox[{"FunctionCompile", "[", 
+     RowBox[{"Function", "[", 
+      RowBox[{
+       RowBox[{"{", "\n", "\t", 
+        RowBox[{
+         RowBox[{"Typed", "[", 
+          RowBox[{"byteArray", ",", " ", 
+           RowBox[{"\"\<NumericArray\>\"", "::[", 
+            RowBox[{"\"\<UnsignedInteger8\>\"", ",", " ", "1"}], "]"}]}], 
+          "]"}], ",", " ", "\n", "\t", 
+         RowBox[{"Typed", "[", 
+          RowBox[{"subByteArray", ",", " ", 
+           RowBox[{"\"\<NumericArray\>\"", "::[", 
+            RowBox[{"\"\<UnsignedInteger8\>\"", ",", " ", "1"}], "]"}]}], 
+          "]"}], ",", " ", "\n", "\t", 
+         RowBox[{"Typed", "[", 
+          RowBox[{"n", ",", " ", 
+           RowBox[{"\"\<PackedArray\>\"", "::[", 
+            RowBox[{"\"\<MachineInteger\>\"", ",", " ", "1"}], "]"}]}], 
+          "]"}]}], "\n", "}"}], ",", " ", "\n", "\t", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"m", " ", "=", " ", "0"}], ",", " ", 
+           RowBox[{"j", " ", "=", " ", "1"}], ",", " ", 
+           RowBox[{"len", " ", "=", " ", 
+            RowBox[{"Length", "[", "subByteArray", "]"}]}], ",", " ", 
+           RowBox[{"positions", " ", "=", " ", 
+            RowBox[{"{", "}"}]}]}], "}"}], ",", "\n", "\t\t", 
+         RowBox[{
+          RowBox[{"Do", "[", "\n", "\t\t\t", 
+           RowBox[{
+            RowBox[{"If", "[", "\n", "\t\t\t\t", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"byteArray", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", " ", ";;", " ", 
+                  RowBox[{"i", " ", "+", " ", "len", " ", "-", " ", "1"}]}], 
+                 "]"}], "]"}], " ", "===", " ", "subByteArray"}], ",", " ", 
+              "\n", "\t\t\t\t\t", 
+              RowBox[{
+               RowBox[{"m", "++"}], ";", " ", "\n", "\t\t\t\t\t", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"m", " ", "===", " ", 
+                  RowBox[{"n", "[", 
+                   RowBox[{"[", "j", "]"}], "]"}]}], ",", " ", "\n", 
+                 "\t\t\t\t\t\t", 
+                 RowBox[{
+                  RowBox[{"j", "++"}], ";", " ", "\n", "\t\t\t\t\t\t", 
+                  RowBox[{"positions", " ", "=", " ", 
+                   RowBox[{"Append", "[", 
+                    RowBox[{"positions", ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", " ", 
+                    RowBox[{"i", " ", "+", " ", "len", " ", "-", " ", "1"}]}],
+                     "}"}]}], "]"}]}], ";", "  ", "\n", "\t\t\t\t\t\t", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{"j", " ", ">", " ", 
+                    RowBox[{"Length", "[", "n", "]"}]}], ",", " ", 
+                    RowBox[{"Break", "[", "]"}]}], "]"}]}]}], "\n", 
+                "\t\t\t\t\t", "]"}]}]}], "\n", "\t\t\t", "]"}], ",", " ", 
+            "\n", "\t\t\t", 
+            RowBox[{"{", 
+             RowBox[{"i", ",", " ", "1", ",", " ", 
+              RowBox[{
+               RowBox[{"Length", "[", "byteArray", "]"}], " ", "-", " ", 
+               "len", " ", "+", " ", "1"}]}], "}"}]}], "\n", "\t\t", "]"}], 
+          ";", " ", "\n", "\t\t", "\n", "\t\t", 
+          RowBox[{"(*", 
+           RowBox[{"Return", ":", " ", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"_Integer", ",", " ", "_Integer"}], "}"}], ".."}], 
+              ","}], " ", "}"}]}], "*)"}], "\n", "\t\t", "positions"}]}], 
+        "\n", "\t", "]"}]}], "\n", "]"}], "]"}]}], ";"}], " "}]], "Code",
+ CellLabel->"In[6]:=",ExpressionUUID->"99f989a6-172d-9540-ab5c-4df826fbcdda"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{"bytesPosition", "[", 
+   RowBox[{"data", ",", " ", "sep", ",", " ", 
+    RowBox[{"{", "1", "}"}]}], "]"}], "]"}]], "Code",
+ CellLabel->"In[14]:=",ExpressionUUID->"27c9aaed-2cac-6241-9fa5-b3e0c19f6abd"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.0001536418701171875`", ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"505", ",", "508"}], "}"}], "}"}]}], "}"}]], "Output",
+ CellLabel->"Out[14]=",ExpressionUUID->"1b5d06b2-971b-e641-b099-5d98fd1002e0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{"BytesPosition", "[", 
+   RowBox[{"data", ",", " ", "sep", ",", " ", "1"}], "]"}], "]"}]], "Code",
+ CellLabel->"In[13]:=",ExpressionUUID->"002ff880-23e4-6642-b33d-e86184ab1b9d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"2.05606689453125`*^-6", ",", 
+   RowBox[{"{", "505", "}"}]}], "}"}]], "Output",
+ CellLabel->"Out[13]=",ExpressionUUID->"8f07928a-bf5e-fb48-866f-abd2b3c50fce"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Normal", "[", "sep", "]"}], "\n", 
+ RowBox[{"Normal", "[", 
+  RowBox[{"data", "[", 
+   RowBox[{"[", 
+    RowBox[{"505", " ", ";;", " ", "508"}], "]"}], "]"}], "]"}]}], "Code",
+ CellLabel->"In[11]:=",ExpressionUUID->"3e23be7a-b0cf-5540-a3df-316e289d091a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"105", ",", "110", ",", "107", ",", "32"}], "}"}]], "Output",
+ CellLabel->"Out[11]=",ExpressionUUID->"7ba7d22c-d4ce-2540-83c7-4a85b3bec7c7"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"105", ",", "110", ",", "107", ",", "32"}], "}"}]], "Output",
+ CellLabel->"Out[12]=",ExpressionUUID->"453b99e2-1551-ed45-be7d-8566faecf153"]
+}, Open  ]],
+
+Cell[BoxData[""], "Code",ExpressionUUID->"817a13c4-f1a2-a34e-9bc9-902bdd69d92c"]
+},
+WindowSize->{804.75, 730.5},
+WindowMargins->{{Automatic, 3}, {Automatic, 14.25}},
+TrackCellChangeTimes->False,
+FrontEndVersion->"14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"e141364d-accc-c449-beff-d09ac328083f"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[1460, 33, 364, 9, 85, "Code",ExpressionUUID->"612d078f-7fd9-ef43-bfc8-5d1cae0e37b2"],
+Cell[1827, 44, 502, 14, 67, "Code",ExpressionUUID->"49930bba-9f35-b340-be8e-4c5a60056387"],
+Cell[2332, 60, 3796, 85, 436, "Code",ExpressionUUID->"99f989a6-172d-9540-ab5c-4df826fbcdda"],
+Cell[CellGroupData[{
+Cell[6153, 149, 259, 5, 50, "Code",ExpressionUUID->"27c9aaed-2cac-6241-9fa5-b3e0c19f6abd"],
+Cell[6415, 156, 252, 6, 32, "Output",ExpressionUUID->"1b5d06b2-971b-e641-b099-5d98fd1002e0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6704, 167, 234, 4, 50, "Code",ExpressionUUID->"002ff880-23e4-6642-b33d-e86184ab1b9d"],
+Cell[6941, 173, 198, 4, 34, "Output",ExpressionUUID->"8f07928a-bf5e-fb48-866f-abd2b3c50fce"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7176, 182, 279, 6, 67, "Code",ExpressionUUID->"3e23be7a-b0cf-5540-a3df-316e289d091a"],
+Cell[7458, 190, 179, 3, 32, "Output",ExpressionUUID->"7ba7d22c-d4ce-2540-83c7-4a85b3bec7c7"],
+Cell[7640, 195, 179, 3, 32, "Output",ExpressionUUID->"453b99e2-1551-ed45-be7d-8566faecf153"]
+}, Open  ]],
+Cell[7834, 201, 80, 0, 50, "Code",ExpressionUUID->"817a13c4-f1a2-a34e-9bc9-902bdd69d92c"]
+}
+]
+*)
+

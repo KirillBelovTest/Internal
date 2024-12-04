@@ -38,7 +38,7 @@ Block[{$directory, $libSrc, $libDir, $linkerOptions},
     ]
 ]; 
 
-build["internal"]; 
+build["binary"]; 
 
 
 build["backgroundTask"]; 

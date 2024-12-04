@@ -24,51 +24,38 @@ Begin["`Private`"];
 
 
 BytesPosition[data_ByteArray, bytes_ByteArray, n_Integer: 1] := 
-bytesPosition[data, bytes, {n}]; 
-
-
-BytesPosition[byteArray_ByteArray, subByteArray_ByteArray, n_List] := 
-bytesPosition[byteArray, subByteArray, n]; 
-
-
-BytesPosition[data_ByteArray, bytes_ByteArray, Span[n_Integer, All]] := 
-bytesPosition[data, bytes, Range[n, Round[Length[data] / Length[bytes]]]]; 
+Select[bytesPosition[data, Length[data], bytes, Length[bytes], n], #>0&]; 
 
 
 BytesSplit[data_ByteArray, separator_ByteArray -> n_Integer?Positive] := 
-Module[{position}, 
-	position = BytesPosition[data, separator, n]; 
-	If[Length[position] > 0, 
-		{data[[ ;; position[[1, 1]] - 1]], data[[position[[1, 2]] + 1 ;; ]]}, 
+Module[{positions, dataLen = Length[data], sepLen = Length[separator]}, 
+	positions = BytesPosition[data, separator, n]; 
+	If[Length[position] === n && 1 < positions[[-1]] < dataLen, 
+		{data[[ ;; positions[[-1]]]], data[[positions[[-1]] + 1 ;; ]]}, 
 	(*Else*)
 		{data}
 	]
 ]; 
 
 
+ByteMask[mask_ByteArray, data_ByteArray] := 
+byteMask[mask, Length[mask], data, Length[data]]; 
+
+
 $directory = 
 DirectoryName[$InputFileName, 2]; 
 
 
-versionQ[n_] := 
-$VersionNumber >= n; 
+$binaryLibrary = 
+LibraryResource[$directory, "binary"]; 
 
 
-bytesPosition := bytesPosition = 
-If[versionQ[$VersionNumber > 13.2], 
-	With[{compiled = PreCompile[{$directory, "bytesPosition"}, {
-		versionQ[13.2] -> FileNameJoin[{$directory, "Kernel", "bytesPosition.wl"}],
-		True -> FileNameJoin[{$directory, "Kernel", "bytesPosition-legacy.wl"}]
-		}]
-	},
-		If[TrueQ[testBytePositions[compiled]],
-			compiled,
-			Get[FileNameJoin[{$directory, "Kernel", "bytesPosition-uncompiled.wl"}]]
-		]
-	],
-(*Else*)
-	Get[FileNameJoin[{$directory, "Kernel", "bytesPosition-uncompiled.wl"}]]
-]; 
+bytesPosition = 
+LibraryFunctionLoad[$binaryLibrary, "bytesPosition", {{"ByteArray", "Shared"}, _Integer, {"ByteArray", "Shared"}, _Integer, _Integer}, {_Integer, 1}]; 
+
+
+byteMask = 
+LibraryFunctionLoad[$binaryLibrary, "byteMask", {{"ByteArray", "Shared"}, _Integer, {"ByteArray", "Shared"}, _Integer}, "ByteArray"]; 
 
 
 End[]; 

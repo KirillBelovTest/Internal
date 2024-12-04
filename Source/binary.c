@@ -48,3 +48,44 @@ DLLEXPORT int byteMask(WolframLibraryData libData, mint Argc, MArgument *Args, M
     MArgument_setMNumericArray(Res, nResult);
     return LIBRARY_NO_ERROR;
 }
+
+DLLEXPORT int bytesPosition(WolframLibraryData libData, mint Argc, MArgument *Args, MArgument Res) {
+    MNumericArray ndata = MArgument_getMNumericArray(Args[0]);
+    uint8_t* data = (uint8_t *)libData->numericarrayLibraryFunctions->MNumericArray_getData(ndata);
+    const mint dataLen = MArgument_getInteger(Args[1]);
+    
+    MNumericArray nsep = MArgument_getMNumericArray(Args[2]);
+    uint8_t* sep = (uint8_t *)libData->numericarrayLibraryFunctions->MNumericArray_getData(nsep); 
+    const mint sepLen = MArgument_getInteger(Args[3]);
+
+    const mint count = MArgument_getInteger(Args[4]);
+
+    MTensor npositions;  
+    libData->MTensor_new(MType_Integer, 1, &count, &npositions);
+    mint* positions = libData->numericarrayLibraryFunctions->MNumericArray_getData(npositions); 
+
+    mint i = 0; 
+
+    for (size_t j = 0; j < dataLen; j++) {
+        if (data[j] == sep[0]) {
+            if (sepLen == 1) {
+                positions[i] = j + 1; 
+                i++;   
+            } else {
+                positions[i] = j + 1; 
+                i++; 
+                for (size_t k = 1; k < sepLen; k++){
+                    if (data[j + k] != sep[k]){
+                        i--; 
+                        positions[i] = 0; 
+                        break; 
+                    }
+                }
+            }
+        }
+        if (i > count) break;
+    }
+
+    MArgument_setMTensor(Res, npositions); 
+    return LIBRARY_NO_ERROR;     
+}
