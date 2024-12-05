@@ -30,8 +30,8 @@ Select[bytesPosition[data, Length[data], bytes, Length[bytes], n], #>0&];
 BytesSplit[data_ByteArray, separator_ByteArray -> n_Integer?Positive] := 
 Module[{positions, dataLen = Length[data], sepLen = Length[separator]}, 
     positions = BytesPosition[data, separator, n]; 
-    If[Length[position] === n && 1 < positions[[-1]] < dataLen, 
-        {data[[ ;; positions[[-1]]]], data[[positions[[-1]] + 1 ;; ]]}, 
+    If[Length[positions] === n && 1 < positions[[-1]] < dataLen, 
+        {data[[ ;; positions[[-1]] - 1]], data[[positions[[-1]] + sepLen ;; ]]}, 
     (*Else*)
         {data, ByteArray[{}]}
     ]
