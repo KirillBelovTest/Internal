@@ -33,7 +33,7 @@ Module[{positions, dataLen = Length[data], sepLen = Length[separator]},
     If[Length[position] === n && 1 < positions[[-1]] < dataLen, 
         {data[[ ;; positions[[-1]]]], data[[positions[[-1]] + 1 ;; ]]}, 
     (*Else*)
-        {data}
+        {data, ByteArray[{}]}
     ]
 ]; 
 
