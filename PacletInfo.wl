@@ -30,6 +30,10 @@ PacletObject[
           {
             "KirillBelov`Internal`Funcs`",
             "Funcs.wl"
+          },
+          {
+            "KirillBelov`Internal`Console`",
+            "Console.wl"
           }
         },
         "Symbols" -> {}

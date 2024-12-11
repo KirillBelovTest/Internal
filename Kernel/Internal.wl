@@ -16,3 +16,6 @@ Get["KirillBelov`Internal`Funcs`"];
 
 
 Get["KirillBelov`Internal`Binary`"]; 
+
+
+Get["KirillBelov`Internal`Console`"]; 

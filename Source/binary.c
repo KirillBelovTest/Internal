@@ -19,6 +19,7 @@ DLLEXPORT void WolframLibrary_uninitialize(WolframLibraryData libData) {
 
 DLLEXPORT int byteMask(WolframLibraryData libData, mint Argc, MArgument *Args, MArgument Res) {
     MNumericArray nMask = MArgument_getMNumericArray(Args[0]);
+    
     uint8_t* mask = (uint8_t *)libData->numericarrayLibraryFunctions->MNumericArray_getData(nMask);
     const mint maskLen = MArgument_getInteger(Args[1]);
     
