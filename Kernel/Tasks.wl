@@ -57,9 +57,9 @@ With[{
 
 
 Options[AsyncEvaluate] := {
-    "LaunchKernels" :> 4, 
+    "LaunchKernels" :> All, 
     "CheckInterval" :> 0.01, 
-    "TimeConstrained" :> 10, 
+    "TimeConstrained" :> 25, 
     "DistributeDefinitions" -> {}
 }; 
 
@@ -73,12 +73,19 @@ With[{
     timeConstrained = OptionValue["TimeConstrained"]
 },
     If[Length[Kernels[]] < OptionValue["LaunchKernels"], 
-        LaunchKernels[OptionValue["LaunchKernels"]]
+        If[OptionValue["LaunchKernels"] === All, 
+            LaunchKernels[]; 
+        (*Else*)
+            LaunchKernels[OptionValue["LaunchKernels"]]
+        ];
     ];
-  
-    Map[DistributeDefinitions, OptionValue["DistributeDefinitions"]]; 
-  
-    With[{task = ParallelSubmit[expr]},     
+    
+    With[{task = With[{$$init = Map[Language`ExtendedFullDefinition, OptionValue["DistributeDefinitions"]]}, 
+        ParallelSubmit[
+            Once[Map[(Language`ExtendedFullDefinition[] = #)&, $$init]]; 
+            expr
+        ]
+    ]}, 
         CreateBackgroundTask[
             Parallel`Developer`QueueRun[]; 
 
