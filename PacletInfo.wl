@@ -28,8 +28,8 @@ PacletObject[
             "Tasks.wl"
           },
           {
-            "KirillBelov`Internal`Funcs`",
-            "Funcs.wl"
+            "KirillBelov`Internal`Functions`",
+            "Functions.wl"
           },
           {
             "KirillBelov`Internal`Console`",

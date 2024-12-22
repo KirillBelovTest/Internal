@@ -1,6 +1,6 @@
 (*:Package:*)
 
-BeginPackage["KirillBelov`Internal`Funcs`"]; 
+BeginPackage["KirillBelov`Internal`Functions`"]; 
 
 
 ClearAll["`*"]; 

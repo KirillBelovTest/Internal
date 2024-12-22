@@ -12,7 +12,7 @@ Get["KirillBelov`Internal`Compilation`"];
 Get["KirillBelov`Internal`Tasks`"]; 
 
 
-Get["KirillBelov`Internal`Funcs`"]; 
+Get["KirillBelov`Internal`Functions`"]; 
 
 
 Get["KirillBelov`Internal`Binary`"]; 
