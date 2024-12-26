@@ -34,9 +34,13 @@ PacletObject[
           {
             "KirillBelov`Internal`Console`",
             "Console.wl"
+          },
+          {
+            "KirillBelov`Internal`Alpha`",
+            "Alpha.wl"
           }
         },
-        "Symbols" -> {}
+        "Symbols" -> {"KirillBelov`Internal`AssocMatchQ"}
       },
       {"Documentation", "Language" -> "English"},
       {"LibraryLink", "Root" -> "LibraryResources"},
