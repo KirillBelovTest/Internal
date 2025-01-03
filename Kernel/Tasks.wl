@@ -18,6 +18,10 @@ AsyncEvaluate::usage =
 "AsyncEvaluate[expr, finish] evaluates expression on parallel kernel and call finish[result] function on master kernel."; 
 
 
+URLReadAsync::usage = 
+"URLReadAsync[request, func] execute request in async mode and call func on response."; 
+
+
 $BackgroundEvent::usage = 
 "Current background task event."; 
 
@@ -99,6 +103,10 @@ With[{
         ]
     ]
 ]; 
+
+
+URLReadAsync[request_HTTPRequest, func_] := 
+AsyncEvaluate[URLRead[request], func]; 
 
 
 $directory = 
