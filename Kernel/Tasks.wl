@@ -63,8 +63,9 @@ With[{
 Options[AsyncEvaluate] := {
     "LaunchKernels" :> All, 
     "CheckInterval" :> 0.01, 
-    "TimeConstrained" :> 25, 
-    "DistributeDefinitions" -> {}
+    "TimeConstrained" :> 600, 
+    "DistributeDefinitions" -> {}, 
+    "Once" -> False
 }; 
 
 
@@ -74,15 +75,17 @@ SetAttributes[AsyncEvaluate, HoldFirst];
 AsyncEvaluate[expr_, finish_, OptionsPattern[]] := 
 With[{
     checkInterval = OptionValue["CheckInterval"], 
-    timeConstrained = OptionValue["TimeConstrained"]
+    timeConstrained = OptionValue["TimeConstrained"], 
+    once = OptionValue["Once"], 
+    launchKernels = OptionValue["LaunchKernels"], 
+    hash = Hash[Hold[expr]]
 },
-    If[Length[Kernels[]] < OptionValue["LaunchKernels"], 
-        If[OptionValue["LaunchKernels"] === All, 
-            LaunchKernels[]; 
-        (*Else*)
-            LaunchKernels[OptionValue["LaunchKernels"]]
-        ];
-    ];
+    Which[
+        Kernels[] === {}, LaunchKernels[], 
+        IntegerQ[launchKernels] && Length[Kernels[]] < launchKernels, LaunchKernels[launchKernels]
+    ]; 
+
+    If[once && KeyExistsQ[$asyncTasks, hash], Return[$asyncTasks[hash]]]; 
     
     With[{task = With[{$$init = Map[Language`ExtendedFullDefinition, OptionValue["DistributeDefinitions"]]}, 
         ParallelSubmit[
@@ -90,23 +93,51 @@ With[{
             expr
         ]
     ]}, 
-        CreateBackgroundTask[
+        $asyncTasks[hash] = CreateBackgroundTask[
             Parallel`Developer`QueueRun[]; 
 
             If[Parallel`Developer`DoneQ[task], 
+                KeyDropFrom[$asyncTasks, hash]; 
                 finish[ReleaseHold[task["Result"]]]; 
             ], 
 
             {checkInterval, Round[timeConstrained / checkInterval]}, 
-
             "StopCondition" -> Function[Parallel`Developer`DoneQ[task]]
         ]
     ]
 ]; 
 
 
+URLReadAsync[request_HTTPRequest, func_, "Stream"] := 
+AsyncEvaluate[
+    Module[{
+        stream = URLRead[request, "Stream"], part = "", response = ""
+    }, 
+        While[True, 
+            part = ReadString[stream]; 
+            If[part === EndOfFile, Break[]]; 
+            response = response <> part; 
+        ]; 
+
+        Close[stream]; 
+
+        response
+    ], 
+    func, 
+    "Once" -> True
+]; 
+
+
 URLReadAsync[request_HTTPRequest, func_] := 
-AsyncEvaluate[URLRead[request], func]; 
+AsyncEvaluate[
+    URLRead[request], 
+    func, 
+    "Once" -> True
+]; 
+
+
+$asyncTasks = 
+<||>; 
 
 
 $directory = 
