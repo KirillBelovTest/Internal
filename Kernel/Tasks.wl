@@ -85,14 +85,18 @@ With[{
         IntegerQ[launchKernels] && Length[Kernels[]] < launchKernels, LaunchKernels[launchKernels]
     ]; 
 
-    If[once && KeyExistsQ[$asyncTasks, hash], Return[$asyncTasks[hash]]]; 
+    If[once && KeyExistsQ[$asyncTasks, hash], Return[Null]]; 
     
-    With[{task = With[{$$init = Map[Language`ExtendedFullDefinition, OptionValue["DistributeDefinitions"]]}, 
-        ParallelSubmit[
-            Once[Map[(Language`ExtendedFullDefinition[] = #)&, $$init]]; 
-            expr
+    With[{
+        task = With[{
+            $$init = Map[Language`ExtendedFullDefinition, OptionValue["DistributeDefinitions"]]
+        }, 
+            ParallelSubmit[
+                Once[Map[(Language`ExtendedFullDefinition[] = #)&, $$init]]; 
+                expr
+            ]
         ]
-    ]}, 
+    }, 
         $asyncTasks[hash] = CreateBackgroundTask[
             Parallel`Developer`QueueRun[]; 
 
@@ -104,7 +108,7 @@ With[{
             {checkInterval, Round[timeConstrained / checkInterval]}, 
             "StopCondition" -> Function[Parallel`Developer`DoneQ[task]]
         ]
-    ]
+    ]; 
 ]; 
 
 
