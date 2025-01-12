@@ -61,15 +61,48 @@ With[{
 
 
 Options[AsyncEvaluate] := {
-    "LaunchKernels" :> All, 
-    "CheckInterval" :> 0.01, 
-    "TimeConstrained" :> 600, 
-    "DistributeDefinitions" -> {}, 
     "Once" -> False
 }; 
 
 
 SetAttributes[AsyncEvaluate, HoldFirst]; 
+
+
+AsyncEvaluate[expr_, handler_, OptionsPattern[]] := 
+With[{id = If[#, Hash[Hold[expr]], Hash[CreateUUID[]]]& @ OptionValue["Once"]}, 
+    initAsyncTools[]; 
+    
+    If[!KeyExistsQ[$asyncTasks, id], $asyncTasks[id] = <|
+        "Task" -> ParallelSubmit[expr], 
+        "Id" -> id, 
+        "Handler" -> handler
+    |>]; 
+
+    AsyncTask[id]
+]; 
+
+
+If[!ValueQ[$asyncToolsNeedInit], $asyncToolsNeedInit = True]; 
+
+
+initAsyncTools[] := 
+If[$asyncToolsNeedInit, 
+    $asyncTasks = <||>; 
+
+    $asyncWatcher = CreateBackgroundTask[checkAsyncTasks[], {0.001, 10^10}]; 
+
+    $asyncToolsNeedInit = False; 
+]; 
+
+
+checkAsyncTasks[] := 
+If[Length[$asyncTasks] > 0, 
+    Parallel`Developer`QueueRun[]; 
+    Map[If[Parallel`Developer`DoneQ[#Task], 
+        KeyDropFrom[$asyncTasks, #Id]; 
+        #Handler[ReleaseHold[#Task["Result"]]]
+    ]&, $asyncTasks]
+]; 
 
 
 AsyncEvaluate[expr_, finish_, OptionsPattern[]] := 

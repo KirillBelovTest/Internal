@@ -23,10 +23,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[      1060,         20]
-NotebookDataLength[      2361,         74]
-NotebookOptionsPosition[      2784,         71]
-NotebookOutlinePosition[      3218,         88]
-CellTagsIndexPosition[      3175,         85]
+NotebookDataLength[      8353,        225]
+NotebookOptionsPosition[      7807,        205]
+NotebookOutlinePosition[      8243,        222]
+CellTagsIndexPosition[      8200,        219]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -49,28 +49,162 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"Once", "[", 
     RowBox[{"LaunchKernels", "[", "]"}], "]"}], ";"}], " "}]}], "Code",
- CellLabel->"In[1]:=",ExpressionUUID->"de9607dd-0d67-5945-b8e1-cc0e4f9c3841"],
+ CellLabel->"In[12]:=",ExpressionUUID->"de9607dd-0d67-5945-b8e1-cc0e4f9c3841"],
 
 Cell[BoxData[
  RowBox[{
   RowBox[{
-   RowBox[{"AsyncEvaluate", "[", 
+   RowBox[{"Do", "[", 
     RowBox[{
-     RowBox[{"CloudEvaluate", "[", 
-      RowBox[{"URLRead", "[", "\"\<https://wolfram.com\>\"", "]"}], "]"}], 
-     ",", " ", "Echo", ",", " ", "\n", "\t", 
-     RowBox[{"\"\<CheckInterval\>\"", " ", "->", " ", "0.001"}], ",", " ", 
-     "\n", "\t", 
-     RowBox[{"\"\<DistributeDefinitions\>\"", " ", "->", " ", 
-      RowBox[{"{", "}"}]}], ",", " ", "\n", "\t", 
-     RowBox[{"\"\<LaunchKernels\>\"", " ", "->", " ", "2"}], ",", " ", "\n", 
-     "\t", 
-     RowBox[{"\"\<TimeConstrained\>\"", " ", "->", " ", "20"}]}], "\n", "]"}],
-    ";"}], " "}]], "Code",
- CellLabel->"In[14]:=",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"]
+     RowBox[{"URLReadAsync", "[", 
+      RowBox[{"\"\<https://wolfram.com\>\"", ",", " ", "Echo"}], "]"}], ",", 
+     " ", 
+     RowBox[{"{", "100", "}"}]}], "]"}], ";"}], " "}]], "Code",
+ CellLabel->"In[16]:=",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["KirillBelov`Internal`Tasks`Private`$asyncWatcher"], "Input",
+ CellLabel->"In[9]:=",ExpressionUUID->"f851f91d-0dbf-7741-8075-7281651b7212"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"AsynchronousTaskObject", "[", "\<\"\"\>", ",", "1", ",", 
+   RowBox[{" ", "<>"}], "]"}],
+  AsynchronousTaskObject["", 1, 31896105711851741981]]], "Output",
+ CellLabel->"Out[9]=",ExpressionUUID->"a47365d4-c5c6-d04a-933c-ba1ad098a576"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["KirillBelov`Internal`Tasks`Private`$asyncTasks"], "Input",
+ CellLabel->"In[11]:=",ExpressionUUID->"43ef6881-888b-044f-8a0a-eeb77709188d"],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", "\[RightAssociation]"}]], "Output",
+ CellLabel->"Out[11]=",ExpressionUUID->"150790dc-9745-0147-a8ca-f6d0bac3b0d3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AbsoluteTiming", "[", 
+  RowBox[{"task", " ", "=", " ", 
+   RowBox[{"ParallelSubmit", "[", "1", "]"}]}], "]"}]], "Input",
+ CellLabel->"In[17]:=",ExpressionUUID->"510244a3-bca2-824b-9620-2eb579fb2dae"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.0000877`", ",", 
+   InterpretationBox[
+    FrameBox[
+     TemplateBox[{
+       DynamicBox[
+        ToBoxes[
+         With[{Parallel`Concurrency`Private`state$ = Quiet[
+             ReplaceAll[
+              Parallel`Developer`ProcessState[
+               EvaluationObject[
+               4, 1, Null, Parallel`Concurrency`Private`state$15367]], 
+              Parallel`Concurrency`Private`stateTrans]]}, 
+          If[
+           IntegerQ[Parallel`Concurrency`Private`state$], 
+           Parallel`Concurrency`Private`evalIcon[
+           Parallel`Concurrency`Private`state$], 
+           Graphics[{{
+              EdgeForm[{
+                RGBColor[1., 0.325, 0.319], 
+                Thickness[0.06]}], 
+              RGBColor[1., 0.9, 0.9], 
+              Disk[{0, 0}]}, {
+              RGBColor[0.7, 0, 0], 
+              
+              Polygon[{{
+               0.11246999999999997`, -0.5750000000000001}, \
+{-0.045539999999999886`, -0.5750000000000001}, {-0.045539999999999886`, \
+-0.4167600000000001}, {0.11246999999999997`, -0.4167600000000001}, {
+               0.11246999999999997`, -0.5750000000000001}, {
+               0.11246999999999997`, -0.5750000000000001}, {
+               0.09453000000000011, -0.25507}, {-0.027600000000000027`, \
+-0.25507}, {-0.045539999999999886`, 
+               0.38088000000000016`}, {-0.045539999999999886`, 
+               0.6216899999999999}, {0.11246999999999997`, 
+               0.6216899999999999}, {0.11246999999999997`, 
+               0.38088000000000016`}, {0.09453000000000011, -0.25507}, {
+               0.09453000000000011, -0.25507}, {
+               0.09453000000000011, -0.25507}}]}}, 
+            ImageSize -> {25., Automatic}]]], StandardForm]], 
+       TemplateBox[{6}, "Spacer1"], 
+       TagBox[
+        GridBox[{{
+           PaneBox[
+            StyleBox[
+             TagBox["1", Short[#, 0.6]& ], Smaller, StripOnInput -> False], 
+            ImageSize -> {Full, 18}, ImageSizeAction -> "ResizeToFit"]}, {
+           DynamicBox[
+            ToBoxes[
+             With[{Parallel`Concurrency`Private`state$ = Quiet[
+                 ReplaceAll[
+                  Parallel`Developer`ProcessState[
+                   EvaluationObject[
+                   4, 1, Null, Parallel`Concurrency`Private`state$15367]], 
+                  Parallel`Concurrency`Private`infotrans]]}, 
+              Style[
+               If[
+                StringQ[Parallel`Concurrency`Private`state$], 
+                Parallel`Concurrency`Private`state$, "invalid"], "Label", 
+               Gray]], StandardForm]]}}, 
+         GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+         "Column", 
+         GridBoxItemSize -> {"Columns" -> {{10}}, "Rows" -> {{Automatic}}}], 
+        "Column"]},
+      "RowDefault"],
+     Background->Dynamic[
+       With[{Parallel`Concurrency`Private`state$ = Quiet[
+           ReplaceAll[
+            Parallel`Developer`ProcessState[
+             EvaluationObject[
+             4, 1, Null, Parallel`Concurrency`Private`state$15367]], 
+            Parallel`Concurrency`Private`stateTrans]]}, 
+        If[
+         IntegerQ[Parallel`Concurrency`Private`state$], 
+         Part[
+         Parallel`Concurrency`Private`bgColors, 
+          Parallel`Concurrency`Private`state$], 
+         RGBColor[1., 0.9, 0.9]]]],
+     FrameMargins->5,
+     FrameStyle->GrayLevel[0.5],
+     RoundingRadius->6,
+     StripOnInput->False],
+    EvaluationObject[4, 1, Null, Parallel`Concurrency`Private`state$15367]]}],
+   "}"}]], "Output",
+ CellLabel->"Out[17]=",ExpressionUUID->"325fdfed-ffdf-3444-b18f-7ca1fae5c497"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{"Parallel`Developer`DoneQ", "[", "task", "]"}], "]"}]], "Input",
+ CellLabel->"In[21]:=",ExpressionUUID->"bd645305-9e9a-4d4b-afea-090cad9fd920"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"2.363137435913086`*^-6", ",", "False"}], "}"}]], "Output",
+ CellLabel->"Out[21]=",ExpressionUUID->"ec9bad52-4183-9942-bd2f-a3355e433fd9"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{
+    "Length", "[", "KirillBelov`Internal`Tasks`Private`$asyncTasks", "]"}], 
+    " ", ">", " ", "0"}], "]"}], "]"}]], "Input",ExpressionUUID->"29d066d0-\
+4aee-2047-9d8d-b55b49acf7e6"]
 },
 WindowSize->{771, 609.75},
-WindowMargins->{{Automatic, -3.75}, {Automatic, 1.5}},
+WindowMargins->{{Automatic, 112.5}, {Automatic, 51.75}},
 TrackCellChangeTimes->False,
 FrontEndVersion->"14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
 StyleDefinitions->"Default.nb",
@@ -87,8 +221,25 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[1460, 33, 595, 18, 102, "Code",ExpressionUUID->"de9607dd-0d67-5945-b8e1-cc0e4f9c3841"],
-Cell[2058, 53, 722, 16, 137, "Code",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"]
+Cell[1460, 33, 596, 18, 102, "Code",ExpressionUUID->"de9607dd-0d67-5945-b8e1-cc0e4f9c3841"],
+Cell[2059, 53, 337, 9, 50, "Code",ExpressionUUID->"7f16d730-05dc-974a-b879-3a635ae3e898"],
+Cell[CellGroupData[{
+Cell[2421, 66, 152, 1, 28, "Input",ExpressionUUID->"f851f91d-0dbf-7741-8075-7281651b7212"],
+Cell[2576, 69, 278, 5, 32, "Output",ExpressionUUID->"a47365d4-c5c6-d04a-933c-ba1ad098a576"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2891, 79, 151, 1, 28, "Input",ExpressionUUID->"43ef6881-888b-044f-8a0a-eeb77709188d"],
+Cell[3045, 82, 159, 2, 32, "Output",ExpressionUUID->"150790dc-9745-0147-a8ca-f6d0bac3b0d3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3241, 89, 224, 4, 28, "Input",ExpressionUUID->"510244a3-bca2-824b-9620-2eb579fb2dae"],
+Cell[3468, 95, 3626, 85, 63, "Output",ExpressionUUID->"325fdfed-ffdf-3444-b18f-7ca1fae5c497"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7131, 185, 200, 3, 28, "Input",ExpressionUUID->"bd645305-9e9a-4d4b-afea-090cad9fd920"],
+Cell[7334, 190, 177, 3, 34, "Output",ExpressionUUID->"ec9bad52-4183-9942-bd2f-a3355e433fd9"]
+}, Open  ]],
+Cell[7526, 196, 277, 7, 28, "Input",ExpressionUUID->"29d066d0-4aee-2047-9d8d-b55b49acf7e6"]
 }
 ]
 *)
