@@ -105,46 +105,6 @@ If[Length[$asyncTasks] > 0,
 ]; 
 
 
-AsyncEvaluate[expr_, finish_, OptionsPattern[]] := 
-With[{
-    checkInterval = OptionValue["CheckInterval"], 
-    timeConstrained = OptionValue["TimeConstrained"], 
-    once = OptionValue["Once"], 
-    launchKernels = OptionValue["LaunchKernels"], 
-    hash = Hash[Hold[expr]]
-},
-    Which[
-        Kernels[] === {}, LaunchKernels[], 
-        IntegerQ[launchKernels] && Length[Kernels[]] < launchKernels, LaunchKernels[launchKernels]
-    ]; 
-
-    If[once && KeyExistsQ[$asyncTasks, hash], Return[Null]]; 
-    
-    With[{
-        task = With[{
-            $$init = Map[Language`ExtendedFullDefinition, OptionValue["DistributeDefinitions"]]
-        }, 
-            ParallelSubmit[
-                Once[Map[(Language`ExtendedFullDefinition[] = #)&, $$init]]; 
-                expr
-            ]
-        ]
-    }, 
-        $asyncTasks[hash] = CreateBackgroundTask[
-            Parallel`Developer`QueueRun[]; 
-
-            If[Parallel`Developer`DoneQ[task], 
-                KeyDropFrom[$asyncTasks, hash]; 
-                finish[ReleaseHold[task["Result"]]]; 
-            ], 
-
-            {checkInterval, Round[timeConstrained / checkInterval]}, 
-            "StopCondition" -> Function[Parallel`Developer`DoneQ[task]]
-        ]
-    ]; 
-]; 
-
-
 URLReadAsync[request_HTTPRequest, func_, "Stream"] := 
 AsyncEvaluate[
     Module[{
