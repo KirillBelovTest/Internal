@@ -186,6 +186,10 @@ Module[{},
 ];
 
 
+ToValue[date_?DateObjectQ] := 
+PURPLE <> DateString[date] <> DEFAULT; 
+
+
 ToValue[expr_] := 
 ToString[expr];
 
